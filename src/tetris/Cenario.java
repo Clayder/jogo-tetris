@@ -19,8 +19,9 @@ public class Cenario {
 
     private Window janela;
     private Scene cena;
-    Sprite sprite;
+    //Sprite sprite;
     List<Objeto> blocos;
+    boolean blocosNoChao;
 
     public Cenario(Window window) {
         janela = window;
@@ -28,32 +29,35 @@ public class Cenario {
         cena.loadFromFile("cenario.scn");
         cena.setDrawStartPos(0, 0);
 
-        Objeto bloco1 = new Objeto(200, 0, "bloco1.png");
-        Objeto bloco2 = new Objeto(220, 0, "bloco1.png");
-        Objeto bloco3 = new Objeto(240, 0, "bloco1.png");
-        Objeto bloco4 = new Objeto(240, 20, "bloco1.png");
+        //Objeto bloco1 = new Objeto(200, 0, "bloco1.png");
+        //Objeto bloco2 = new Objeto(220, 0, "bloco1.png");
+        //Objeto bloco3 = new Objeto(240, 0, "bloco1.png");
+        //Objeto bloco4 = new Objeto(240, 20, "bloco1.png");
 
-        
         blocos = new ArrayList<Objeto>();
-        blocos.add(bloco1);
-        blocos.add(bloco2);
-        blocos.add(bloco3);
+        for (int i = 0; i < 4; i++) {
+            blocos.add(new Objeto(200, 0, "bloco1.png"));
+        }
+        //blocos = new ArrayList<Objeto>();
+        //blocos.add(bloco1);
+        //blocos.add(bloco2);
+        //blocos.add(bloco3);
         //blocos.add(bloco4);
 
-        /*
         blocos.get(0).setFloor(530);
         blocos.get(1).setFloor(530);
         blocos.get(2).setFloor(530);
         blocos.get(3).setFloor(550);
-        */
-        /*
-        bloco1.setFloor(530);
-        bloco2.setFloor(530);
-        bloco3.setFloor(530);
-        bloco4.setFloor(550);
-                */
 
-//sprite = new Sprite("p_blue.png");
+        blocosNoChao = false;
+
+        /*
+         bloco1.setFloor(530);
+         bloco2.setFloor(530);
+         bloco3.setFloor(530);
+         bloco4.setFloor(550);
+         */
+        //sprite = new Sprite("p_blue.png");
         //sprite.y = 0;
         //sprite.x = 250;
         // sprite.setGravity(1);
@@ -69,6 +73,29 @@ public class Cenario {
             for (Sprite sp : blocos) {
                 sp.draw();
                 sp.fall();
+            }
+
+            if (blocos.get(0).isOnFloor() && blocos.get(1).isOnFloor() && blocos.get(2).isOnFloor() && blocos.get(3).isOnFloor()) {
+
+                blocos = new ArrayList<Objeto>();
+                for (int i = 0; i < 4; i++) {
+                    blocos.add(new Objeto(200, 0, "bloco1.png"));
+                }
+                //Objeto bloco1 = new Objeto(200, 0, "bloco1.png");
+                //Objeto bloco2 = new Objeto(220, 0, "bloco1.png");
+                //Objeto bloco3 = new Objeto(240, 0, "bloco1.png");
+                //Objeto bloco4 = new Objeto(240, 20, "bloco1.png");
+
+                //blocos.add(bloco1);
+                //blocos.add(bloco2);
+                //blocos.add(bloco3);
+                //blocos.add(bloco4);
+                blocos.get(0).setFloor(530);
+                blocos.get(1).setFloor(530);
+                blocos.get(2).setFloor(530);
+                blocos.get(3).setFloor(550);
+
+                //blocosNoChao = true;
             }
 
             janela.update();
