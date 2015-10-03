@@ -2,7 +2,7 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
+*/
 package tetris;
 
 import jplay.Keyboard;
@@ -55,22 +55,43 @@ public class Cenario {
                 sp.fall();
             }
 
-            // Apertar para rotacionar 
+            // Movimenta o bloco para esquerda 
             if (teclado.keyDown(Keyboard.LEFT_KEY)) {
+                blocos.getBlocos().get(0).x = blocos.getBlocos().get(0).x - 20;
+                blocos.getBlocos().get(1).x = blocos.getBlocos().get(1).x - 20;
+                blocos.getBlocos().get(2).x = blocos.getBlocos().get(2).x - 20;
+                blocos.getBlocos().get(3).x = blocos.getBlocos().get(3).x - 20;
+            } // Movimenta o bloco para direita
+            else if (teclado.keyDown(Keyboard.RIGHT_KEY)) {
                 blocos.getBlocos().get(0).x = blocos.getBlocos().get(0).x + 20;
+                blocos.getBlocos().get(1).x = blocos.getBlocos().get(1).x + 20;
+                blocos.getBlocos().get(2).x = blocos.getBlocos().get(2).x + 20;
+                blocos.getBlocos().get(3).x = blocos.getBlocos().get(3).x + 20;
             }
-
+            // Rotaciona o bloco
+            if (teclado.keyDown(Keyboard.UP_KEY)) {
+                rotacao++;
+                blocos.getBlocos().get(0).x = blocos.getBlocos().get(1).x;
+                blocos.getBlocos().get(0).y = blocos.getBlocos().get(1).y - 20;
+                
+                //blocos.getBlocos().get(1).x = blocos.getBlocos().get(1).x + 0;
+                //blocos.getBlocos().get(1).y = blocos.getBlocos().get(1).y + 0;
+                
+                blocos.getBlocos().get(2).x = blocos.getBlocos().get(1).x;
+                blocos.getBlocos().get(2).y = blocos.getBlocos().get(1).y + 20;
+                
+                blocos.getBlocos().get(3).x = blocos.getBlocos().get(1).x - 20;
+                blocos.getBlocos().get(3).y = blocos.getBlocos().get(1).y + 20;
+                if (rotacao > 3) {
+                    rotacao = 0;
+                }
+            }
 
             /*
              * Assim que os 4 objetos chegarem ao seu destino outros 4 vão ser criados 
              */
             /*
              if (blocos.getBlocos().get(0).isOnFloor() && blocos.getBlocos().get(1).isOnFloor() && blocos.getBlocos().get(2).isOnFloor() && blocos.getBlocos().get(3).isOnFloor()) {
-                
-             rotacao++;
-             if(rotacao > 3){
-             rotacao = 0;
-             }
                
              blocos = new Blocos(rotacao);
              blocos.getBlocos();

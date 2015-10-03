@@ -38,19 +38,18 @@ public class Blocos {
         blocos.add(bloco3);
         blocos.add(bloco4);
 
-        
-                 blocos.get(0).setFloor(530);
+        blocos.get(0).setFloor(530);
 
-         blocos.get(1).setFloor(530);
+        blocos.get(1).setFloor(530);
 
-         blocos.get(2).setFloor(530);
+        blocos.get(2).setFloor(530);
 
-         blocos.get(3).setFloor(550);
-         /*
-        blocos.get(0).setFloor(this.obj0.get(2));
-        blocos.get(1).setFloor(this.obj1.get(2));
-        blocos.get(2).setFloor(this.obj2.get(2));
-        blocos.get(3).setFloor(this.obj3.get(2));
+        blocos.get(3).setFloor(550);
+        /*
+         blocos.get(0).setFloor(this.obj0.get(2));
+         blocos.get(1).setFloor(this.obj1.get(2));
+         blocos.get(2).setFloor(this.obj2.get(2));
+         blocos.get(3).setFloor(this.obj3.get(2));
          */
 
     }
