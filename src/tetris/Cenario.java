@@ -8,7 +8,7 @@ import jplay.Window;
 /**
  *
  * @author clayder
-*/
+ */
 public class Cenario {
 
     private Window janela;
@@ -26,14 +26,14 @@ public class Cenario {
         cena.setDrawStartPos(0, 0); // posiciona o cenario
         /*
          * Vai dar o ponta pé inicial criando um bloco com 4 objetos
-        */
+         */
         blocos = new Blocos();
 
         /*
          * Retorna uma lista contendo 1 bloco com 4 objetos
         */
         blocos.getBlocos();
-        
+
         run();
     }
 
@@ -63,32 +63,25 @@ public class Cenario {
                 blocos.getBlocos().get(3).x = blocos.getBlocos().get(3).x + 20;
             }
             // Rotaciona o bloco
-            if (teclado.keyDown(Keyboard.UP_KEY)) {
+            if (teclado.keyDown(Keyboard.ENTER_KEY)) {
+                
                 rotacao++;
-                
-                /*
-                * Para rotacionar sempre iremos deixar o objeto1 "parado" e movimentar 
-                * os outros 3 objetos em relação ao objeto1
-                * O objeto1 vai ser o nosso centro.
-                
-                
-                // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-                blocos.getBlocos().get(0).x = blocos.getBlocos().get(1).x; 
-                blocos.getBlocos().get(0).y = blocos.getBlocos().get(1).y - 20;
-                 
-                // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-                blocos.getBlocos().get(2).x = blocos.getBlocos().get(1).x;
-                blocos.getBlocos().get(2).y = blocos.getBlocos().get(1).y + 20;
-                
-                // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-                blocos.getBlocos().get(3).x = blocos.getBlocos().get(1).x - 20;
-                blocos.getBlocos().get(3).y = blocos.getBlocos().get(1).y + 20;
-                */
-                
-                blocos.setBlocos(blocos.rotacionarJ(blocos.getBlocos())); 
-                if (rotacao > 3) {
+
+                if (rotacao == 4) {
                     rotacao = 0;
                 }
+
+                /*
+                 *      rotacionar(List<Objeto> bloco, int rotacao) 
+                 *      - método que rotaciona o bloco 
+                 *      - @param - Bloco que será rotacionado |número da rotacao 
+                 *      - return - Retornar uma nova lista do tipo Objeto
+                 *      
+                 *      setBlocos(List<Objeto>)
+                 *      - Método que atualiza o bloco 
+                */
+                blocos.setBlocos(blocos.rotacionar(blocos.getBlocos(), rotacao));
+
             }
 
             /*

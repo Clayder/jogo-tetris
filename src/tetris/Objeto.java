@@ -6,7 +6,7 @@ import jplay.Sprite;
 
 public class Objeto extends Sprite {
 
-    double gravidade = 1;
+    double gravidade = 0.1;
     List<Objeto> blocos ;
 
     public Objeto(int x, int y, String arquivo) {
@@ -15,10 +15,4 @@ public class Objeto extends Sprite {
         this.y = y;
         this.setGravity(gravidade);
     }
-
-
-
-   
-    
-    
 }
