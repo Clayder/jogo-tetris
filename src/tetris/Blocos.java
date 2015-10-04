@@ -820,33 +820,56 @@ public class Blocos {
         this.tipoBloco = gerador.nextInt(6);
 
         /*
+         * recebe uma lista onde cada campo é um valor possivel (eixo x) para o bloco
+         */
+        List<Integer> valoresX = new ArrayList<Integer>();
+
+        /*
          * Gerar a posicao x que o bloco será criado
          * Temos que vericar qual foi o bloco gerado, por causa das paredes
          */
         // Se o bloco for O
         if (tipoBloco == 4) {
-            this.posXInicialBloco = this.getRandomInt(40, 380);
-        } 
-        // Se o Bloco for I
+            /*
+             * Ele só poderá surgir no intervalo 40 - 380
+             */
+            valoresX = this.valPossiveisX(40, 380);
+        } // Se o Bloco for I
         else if (tipoBloco == 6) {
-            this.posXInicialBloco = this.getRandomInt(20, 380);
+            valoresX = this.valPossiveisX(20, 380);
+        } // Demais blocos
+        else {
+            valoresX = this.valPossiveisX(40, 360);
+        }
+        // Tamanho da lista
+        int qtdVlaoresX = valoresX.size();
+        this.posXInicialBloco = valoresX.get(gerador.nextInt(qtdVlaoresX));
+    }
+
+    /*
+     * Gera uma lista com os possiveis valores do bloco 
+     * Esses valores possuem um intervalo de diferençã igual a 20
+     */
+    public List<Integer> valPossiveisX(int min, int max) {
+        List<Integer> valoresX = new ArrayList<Integer>();
+        int i = min;
+        while (max != i) {
+            valoresX.add(i);
+            i = i + 20;
+        }
+        return valoresX;
+    }
+
+    /*
+    * Verifica se o bloco já chegou no chão
+    */
+    public boolean blocoChao(List<Objeto> bloco) {
+        if (bloco.get(0).isOnFloor() && bloco.get(1).isOnFloor() && bloco.get(2).isOnFloor() && bloco.get(3).isOnFloor()) {
+            return true;
         } else {
-            this.posXInicialBloco = this.getRandomInt(40, 360);
-        }
-    }
-
-    private int getRandomInt(int min, int max) {
-        return (int) (Math.floor(Math.random() * (max - min + 1)) + min);
-    }
-
-    public boolean  blocoChao(List<Objeto> bloco){
-        if(bloco.get(0).isOnFloor() && bloco.get(1).isOnFloor() && bloco.get(2).isOnFloor() && bloco.get(3).isOnFloor()){
-           return true ; 
-        }
-        else{
             return false;
         }
-        
+
     }
 
 }

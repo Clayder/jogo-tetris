@@ -4,7 +4,7 @@ import jplay.Sprite;
 
 public class Objeto extends Sprite {
 
-    double gravidade = 0.1;
+    double gravidade = 1;
    
 
     public Objeto(int x, int y, String arquivo) {
