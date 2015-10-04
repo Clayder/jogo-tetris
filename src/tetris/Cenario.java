@@ -22,6 +22,8 @@ public class Cenario {
     public Cenario(Window window) {
         janela = window;
         teclado = janela.getKeyboard();
+        teclado.setBehavior(Keyboard.RIGHT_KEY, Keyboard.DETECT_INITIAL_PRESS_ONLY);
+        teclado.setBehavior(Keyboard.LEFT_KEY, Keyboard.DETECT_INITIAL_PRESS_ONLY);
         cena = new Scene();
         cena.loadFromFile("cenario.scn");
         cena.setDrawStartPos(0, 0); // posiciona o cenario
@@ -55,7 +57,7 @@ public class Cenario {
                 sp.draw();
                 sp.fall();
             }
-
+             
             // Movimenta o bloco para esquerda 
             if (teclado.keyDown(Keyboard.LEFT_KEY)) {
                 blocos.getBlocos().get(0).x = blocos.getBlocos().get(0).x - 20;

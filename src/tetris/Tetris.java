@@ -11,6 +11,7 @@ public class Tetris {
         Window janela = new Window(800, 600);
         GameImage plano = new GameImage("tetris_logo.jpg");
         Keyboard teclado = janela.getKeyboard();
+         
         while (true) {
             plano.draw();
             janela.update();
