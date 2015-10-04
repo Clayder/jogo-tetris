@@ -21,24 +21,38 @@ public class Blocos {
      *   - 6 = I
      */
     private int tipoBloco;
-
+    private int posXInicialBloco;
     private int CHAO = 550; // onde fica o chao 
 
     public Blocos() {
+        this.gerarBlocoAleatorio();
         this.criaBlocos();
     }
 
     private void criaBlocos() {
 
         String corBloco = this.corAleatoria();
-        tipoBloco = 2;
 
         /*
          * marca a posicao do objeto central (objeto1)
          */
-        int posObjCentral = 380;
+        int posObjCentral = this.posXInicialBloco;
 
-        this.blocoI(posObjCentral, corBloco);
+        if (this.tipoBloco == 0) {
+            this.blocoJ(posObjCentral, corBloco);
+        } else if (this.tipoBloco == 1) {
+            this.blocoL(posObjCentral, corBloco);
+        } else if (this.tipoBloco == 2) {
+            this.blocoT(posObjCentral, corBloco);
+        } else if (this.tipoBloco == 3) {
+            this.blocoS(posObjCentral, corBloco);
+        } else if (this.tipoBloco == 4) {
+            this.blocoO(posObjCentral, corBloco);
+        } else if (this.tipoBloco == 5) {
+            this.blocoZ(posObjCentral, corBloco);
+        } else if (this.tipoBloco == 6) {
+            this.blocoI(posObjCentral, corBloco);
+        }
     }
 
     private void blocoJ(int posObjCentral, String corBloco) {
@@ -800,20 +814,29 @@ public class Blocos {
     }
 
     private void gerarBlocoAleatorio() {
-        List<Integer> blocoAleatorio = new ArrayList<Integer>();
+
         Random gerador = new Random();
         // gera um numero aleatório entre 0 e 6
-        int idBloco = gerador.nextInt(6);
-        
+        this.tipoBloco = gerador.nextInt(6);
+
         /*
-        * Gerar a posicao x que o bloco será criado
-        * Temos que vericar qual foi o bloco gerado, por causa das paredes
-        */
-        
-        if(idBloco == ){
-            
+         * Gerar a posicao x que o bloco será criado
+         * Temos que vericar qual foi o bloco gerado, por causa das paredes
+         */
+        // Se o bloco for O
+        if (tipoBloco == 4) {
+            this.posXInicialBloco = this.getRandomInt(40, 380);
+        } 
+        // Se o Bloco for I
+        else if (tipoBloco == 6) {
+            this.posXInicialBloco = this.getRandomInt(20, 380);
+        } else {
+            this.posXInicialBloco = this.getRandomInt(40, 360);
         }
-        
-        
     }
+
+    private int getRandomInt(int min, int max) {
+        return (int) (Math.floor(Math.random() * (max - min + 1)) + min);
+    }
+
 }
