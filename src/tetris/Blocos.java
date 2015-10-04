@@ -839,4 +839,14 @@ public class Blocos {
         return (int) (Math.floor(Math.random() * (max - min + 1)) + min);
     }
 
+    public boolean  blocoChao(List<Objeto> bloco){
+        if(bloco.get(0).isOnFloor() && bloco.get(1).isOnFloor() && bloco.get(2).isOnFloor() && bloco.get(3).isOnFloor()){
+           return true ; 
+        }
+        else{
+            return false;
+        }
+        
+    }
+
 }

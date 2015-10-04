@@ -1,5 +1,6 @@
 package tetris;
 
+import java.awt.Color;
 import jplay.Keyboard;
 import jplay.Scene;
 import jplay.Sprite;
@@ -31,7 +32,7 @@ public class Cenario {
 
         /*
          * Retorna uma lista contendo 1 bloco com 4 objetos
-        */
+         */
         blocos.getBlocos();
 
         run();
@@ -41,6 +42,12 @@ public class Cenario {
         while (true) {
 
             cena.draw();
+            
+            Color vermelhoEscuro = new Color(235, 50, 50);
+            // janela.drawText("Quadrao eixo x: " + quadrados.get(idQuadrado).x + "eixo y: " + quadrados.get(idQuadrado).y + "Lugar de queda: " + quadrados.get(idQuadrado).isOnFloor() + " id quadrado" + idQuadrado, 20, 20, vermelhoEscuro);
+            janela.drawText("Rotacao" + rotacao, 500, 80, vermelhoEscuro);
+            
+            
             /*
              * Imprime o bloco
              */
@@ -64,19 +71,17 @@ public class Cenario {
             }
             // Rotaciona o bloco
             if (teclado.keyDown(Keyboard.ENTER_KEY)) {
-                
+
                 rotacao++;
-                
+
                 /*
-                * Os blocos do tipo < 3 fazem no maximo 4 rotacoes (0 até 3)
-                */
+                 * Os blocos do tipo < 3 fazem no maximo 4 rotacoes (0 até 3)
+                 */
                 if (rotacao == 4 && blocos.getTipoBloco() < 3) {
                     rotacao = 0;
-                }
-                /*
-                * Os blocos do tipo >= 3 fazem no maximo 2 rotacoes (0 e 1)
-                */
-                else if(rotacao == 2 && blocos.getTipoBloco() >= 3){
+                } /*
+                 * Os blocos do tipo >= 3 fazem no maximo 2 rotacoes (0 e 1)
+                 */ else if (rotacao == 2 && blocos.getTipoBloco() >= 3) {
                     rotacao = 0;
                 }
 
@@ -88,7 +93,7 @@ public class Cenario {
                  *      
                  *      setBlocos(List<Objeto>)
                  *      - Método que atualiza o bloco 
-                */
+                 */
                 blocos.setBlocos(blocos.rotacionar(blocos.getBlocos(), rotacao));
 
             }
@@ -96,14 +101,13 @@ public class Cenario {
             /*
              * Assim que os 4 objetos chegarem ao seu destino outros 4 vão ser criados 
              */
-            /*
-             if (blocos.getBlocos().get(0).isOnFloor() && blocos.getBlocos().get(1).isOnFloor() && blocos.getBlocos().get(2).isOnFloor() && blocos.getBlocos().get(3).isOnFloor()) {
-               
-             blocos = new Blocos(rotacao);
-             blocos.getBlocos();
-                
-             }
-             */
+            if (blocos.blocoChao(blocos.getBlocos())) {
+                rotacao = 0;
+                blocos = new Blocos();
+                blocos.getBlocos();
+
+            }
+
             janela.update();
         }
     }
