@@ -1,13 +1,11 @@
 package tetris;
 
-import java.util.ArrayList;
-import java.util.List;
 import jplay.Sprite;
 
 public class Objeto extends Sprite {
 
     double gravidade = 0.1;
-    List<Objeto> blocos ;
+   
 
     public Objeto(int x, int y, String arquivo) {
         super(arquivo);
@@ -15,4 +13,7 @@ public class Objeto extends Sprite {
         this.y = y;
         this.setGravity(gravidade);
     }
+    
+    
+
 }

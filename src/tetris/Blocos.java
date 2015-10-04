@@ -2,10 +2,12 @@ package tetris;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Blocos {
 
     private List<Objeto> blocos;
+    private List<String> coresObjeto;
 
     /*
      * var int tipoBloco 
@@ -28,26 +30,26 @@ public class Blocos {
 
     private void criaBlocos() {
 
-        String corBloco = "bloco1.png";
+        String corBloco = this.corAleatoria();
         tipoBloco = 2;
 
         /*
          * marca a posicao do objeto central (objeto1)
          */
-        int posObjCentral = 40;
+        int posObjCentral = 380;
 
-        this.blocoT(posObjCentral);
+        this.blocoI(posObjCentral, corBloco);
     }
 
-    private void blocoJ(int posObjCentral) {
+    private void blocoJ(int posObjCentral, String corBloco) {
 
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral - 20, 0, "bloco1.png");
-        Objeto bloco1 = new Objeto(posObjCentral, 0, "bloco2.png");
-        Objeto bloco2 = new Objeto(posObjCentral + 20, 0, "bloco3.png");
-        Objeto bloco3 = new Objeto(posObjCentral + 20, 20, "bloco5.png");
+        Objeto bloco0 = new Objeto(posObjCentral - 20, 0, corBloco);
+        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco);
+        Objeto bloco2 = new Objeto(posObjCentral + 20, 0, corBloco);
+        Objeto bloco3 = new Objeto(posObjCentral + 20, 20, corBloco);
 
         /*
          * Armazena os Objetos dentro da lista blocos 
@@ -175,15 +177,15 @@ public class Blocos {
         return bloco;
     }
 
-    private void blocoL(int posObjCentral) {
+    private void blocoL(int posObjCentral, String corBloco) {
 
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral - 20, 0, "bloco1.png");
-        Objeto bloco1 = new Objeto(posObjCentral, 0, "bloco2.png");
-        Objeto bloco2 = new Objeto(posObjCentral - 20, 20, "bloco3.png");
-        Objeto bloco3 = new Objeto(posObjCentral + 20, 0, "bloco5.png");
+        Objeto bloco0 = new Objeto(posObjCentral - 20, 0, corBloco);
+        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco);
+        Objeto bloco2 = new Objeto(posObjCentral - 20, 20, corBloco);
+        Objeto bloco3 = new Objeto(posObjCentral + 20, 0, corBloco);
 
         /*
          * Armazena os Objetos dentro da lista blocos 
@@ -311,15 +313,15 @@ public class Blocos {
         return bloco;
     }
 
-    private void blocoT(int posObjCentral) {
+    private void blocoT(int posObjCentral, String corBloco) {
 
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral + 20, 0, "bloco1.png");
-        Objeto bloco1 = new Objeto(posObjCentral, 0, "bloco2.png");
-        Objeto bloco2 = new Objeto(posObjCentral, 20, "bloco3.png");
-        Objeto bloco3 = new Objeto(posObjCentral - 20, 0, "bloco5.png");
+        Objeto bloco0 = new Objeto(posObjCentral + 20, 0, corBloco);
+        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco);
+        Objeto bloco2 = new Objeto(posObjCentral, 20, corBloco);
+        Objeto bloco3 = new Objeto(posObjCentral - 20, 0, corBloco);
 
         /*
          * Armazena os Objetos dentro da lista blocos 
@@ -397,11 +399,9 @@ public class Blocos {
             bloco.get(1).setFloor(CHAO - 20);
             bloco.get(2).setFloor(CHAO);
             bloco.get(3).setFloor(CHAO - 20);
-        } 
-        /*
+        } /*
          * _____|____
-        */ 
-        else if (rotacao == 2) {
+         */ else if (rotacao == 2) {
             // Movimenta o objeto0 em relação ao eixo x e y do objeto1
             bloco.get(0).x = bloco.get(1).x;
             bloco.get(0).y = bloco.get(1).y - 20;
@@ -421,13 +421,11 @@ public class Blocos {
             bloco.get(1).setFloor(CHAO);
             bloco.get(2).setFloor(CHAO);
             bloco.get(3).setFloor(CHAO);
-        } 
-        /*
+        } /*
          *  |
          *   ----
          *  |
-        */ 
-        else if (rotacao == 3) {
+         */ else if (rotacao == 3) {
             // Movimenta o objeto0 em relação ao eixo x e y do objeto1
             bloco.get(0).x = bloco.get(1).x;
             bloco.get(0).y = bloco.get(1).y - 20;
@@ -452,15 +450,15 @@ public class Blocos {
         return bloco;
     }
 
-    private void blocoO(int posObjCentral) {
+    private void blocoO(int posObjCentral, String corBloco) {
 
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral - 20, 0, "bloco1.png");
-        Objeto bloco1 = new Objeto(posObjCentral, 0, "bloco2.png");
-        Objeto bloco2 = new Objeto(posObjCentral, 20, "bloco3.png");
-        Objeto bloco3 = new Objeto(posObjCentral - 20, 20, "bloco5.png");
+        Objeto bloco0 = new Objeto(posObjCentral - 20, 0, corBloco);
+        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco);
+        Objeto bloco2 = new Objeto(posObjCentral, 20, corBloco);
+        Objeto bloco3 = new Objeto(posObjCentral - 20, 20, corBloco);
 
         /*
          * Armazena os Objetos dentro da lista blocos 
@@ -480,15 +478,15 @@ public class Blocos {
         blocos.get(3).setFloor(CHAO);
     }
 
-    private void blocoS(int posObjCentral) {
+    private void blocoS(int posObjCentral, String corBloco) {
 
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral, -20, "bloco1.png");
-        Objeto bloco1 = new Objeto(posObjCentral, 0, "bloco2.png");
-        Objeto bloco2 = new Objeto(posObjCentral - 20, 0, "bloco3.png");
-        Objeto bloco3 = new Objeto(posObjCentral + 20, -20, "bloco5.png");
+        Objeto bloco0 = new Objeto(posObjCentral, -20, corBloco);
+        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco);
+        Objeto bloco2 = new Objeto(posObjCentral - 20, 0, corBloco);
+        Objeto bloco3 = new Objeto(posObjCentral + 20, -20, corBloco);
 
         /*
          * Armazena os Objetos dentro da lista blocos 
@@ -571,15 +569,15 @@ public class Blocos {
         return bloco;
     }
 
-    private void blocoZ(int posObjCentral) {
+    private void blocoZ(int posObjCentral, String corBloco) {
 
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral, -20, "bloco1.png");
-        Objeto bloco1 = new Objeto(posObjCentral, 0, "bloco2.png");
-        Objeto bloco2 = new Objeto(posObjCentral + 20, 0, "bloco3.png");
-        Objeto bloco3 = new Objeto(posObjCentral - 20, -20, "bloco5.png");
+        Objeto bloco0 = new Objeto(posObjCentral, -20, corBloco);
+        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco);
+        Objeto bloco2 = new Objeto(posObjCentral + 20, 0, corBloco);
+        Objeto bloco3 = new Objeto(posObjCentral - 20, -20, corBloco);
 
         /*
          * Armazena os Objetos dentro da lista blocos 
@@ -662,15 +660,15 @@ public class Blocos {
         return bloco;
     }
 
-    private void blocoI(int posObjCentral) {
+    private void blocoI(int posObjCentral, String corBloco) {
 
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral, -40, "bloco1.png");
-        Objeto bloco1 = new Objeto(posObjCentral, 0, "bloco2.png");
-        Objeto bloco2 = new Objeto(posObjCentral, -20, "bloco3.png");
-        Objeto bloco3 = new Objeto(posObjCentral, 20, "bloco5.png");
+        Objeto bloco0 = new Objeto(posObjCentral, -40, corBloco);
+        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco);
+        Objeto bloco2 = new Objeto(posObjCentral, -20, corBloco);
+        Objeto bloco3 = new Objeto(posObjCentral, 20, corBloco);
 
         /*
          * Armazena os Objetos dentro da lista blocos 
@@ -782,4 +780,40 @@ public class Blocos {
         return tipoBloco;
     }
 
+    private void addCoresObjeto() {
+        coresObjeto = new ArrayList<String>();
+        coresObjeto.add("bloco1.png");
+        coresObjeto.add("bloco2.png");
+        coresObjeto.add("bloco3.png");
+        coresObjeto.add("bloco4.png");
+        coresObjeto.add("bloco5.png");
+        coresObjeto.add("bloco6.png");
+    }
+
+    private String corAleatoria() {
+        Random gerador = new Random();
+        // gera um numero aleatório entre 0 e 5
+        int cor = gerador.nextInt(5);
+        this.addCoresObjeto();
+
+        return coresObjeto.get(cor);
+    }
+
+    private void gerarBlocoAleatorio() {
+        List<Integer> blocoAleatorio = new ArrayList<Integer>();
+        Random gerador = new Random();
+        // gera um numero aleatório entre 0 e 6
+        int idBloco = gerador.nextInt(6);
+        
+        /*
+        * Gerar a posicao x que o bloco será criado
+        * Temos que vericar qual foi o bloco gerado, por causa das paredes
+        */
+        
+        if(idBloco == ){
+            
+        }
+        
+        
+    }
 }
