@@ -66,8 +66,17 @@ public class Cenario {
             if (teclado.keyDown(Keyboard.ENTER_KEY)) {
                 
                 rotacao++;
-
-                if (rotacao == 4) {
+                
+                /*
+                * Os blocos do tipo < 3 fazem no maximo 4 rotacoes (0 até 3)
+                */
+                if (rotacao == 4 && blocos.getTipoBloco() < 3) {
+                    rotacao = 0;
+                }
+                /*
+                * Os blocos do tipo >= 3 fazem no maximo 2 rotacoes (0 e 1)
+                */
+                else if(rotacao == 2 && blocos.getTipoBloco() >= 3){
                     rotacao = 0;
                 }
 
