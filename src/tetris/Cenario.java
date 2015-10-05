@@ -14,20 +14,26 @@ public class Cenario {
 
     private Window janela;
     private Scene cena;
-    Blocos blocos;
-    Blocos blocosTeste;
-    int rotacao = 0;
-    Keyboard teclado;
+    private Blocos blocos;
+    private Blocos blocosTeste;
+    private int rotacao = 0;
+    private Keyboard teclado;
     private Rotacao rot;
+    private Controlador mover;
 
     public Cenario(Window window) {
         janela = window;
         teclado = janela.getKeyboard();
         teclado.setBehavior(Keyboard.RIGHT_KEY, Keyboard.DETECT_INITIAL_PRESS_ONLY);
         teclado.setBehavior(Keyboard.LEFT_KEY, Keyboard.DETECT_INITIAL_PRESS_ONLY);
+        teclado.setBehavior(Keyboard.DOWN_KEY, Keyboard.DETECT_INITIAL_PRESS_ONLY);
+        teclado.setBehavior(Keyboard.UP_KEY, Keyboard.DETECT_INITIAL_PRESS_ONLY);
         cena = new Scene();
         cena.loadFromFile("cenario.scn");
         cena.setDrawStartPos(0, 0); // posiciona o cenario
+        
+        
+        
         /*
          * Vai dar o ponta pé inicial criando um bloco com 4 objetos
          */
@@ -48,8 +54,7 @@ public class Cenario {
             
             Color vermelhoEscuro = new Color(235, 50, 50);
             // janela.drawText("Quadrao eixo x: " + quadrados.get(idQuadrado).x + "eixo y: " + quadrados.get(idQuadrado).y + "Lugar de queda: " + quadrados.get(idQuadrado).isOnFloor() + " id quadrado" + idQuadrado, 20, 20, vermelhoEscuro);
-            janela.drawText("obj:  " + blocos.getBlocos().get(0).y +" "+ blocos.getBlocos().get(1).y +" "+ blocos.getBlocos().get(2).y+" "+ blocos.getBlocos().get(3).y+" Rotacao: "+rotacao, 500, 80, vermelhoEscuro);
-            
+            janela.drawText("Rotacao: "+rotacao, 500, 80, vermelhoEscuro);
             
             /*
              * Imprime o bloco
@@ -61,19 +66,19 @@ public class Cenario {
              
             // Movimenta o bloco para esquerda 
             if (teclado.keyDown(Keyboard.LEFT_KEY)) {
-                blocos.getBlocos().get(0).x = blocos.getBlocos().get(0).x - 20;
-                blocos.getBlocos().get(1).x = blocos.getBlocos().get(1).x - 20;
-                blocos.getBlocos().get(2).x = blocos.getBlocos().get(2).x - 20;
-                blocos.getBlocos().get(3).x = blocos.getBlocos().get(3).x - 20;
+                mover = new Controlador(blocos.getBlocos(), rotacao, blocos.getTipoBloco());
+                blocos.setBlocos(mover.moverEsq());
+                
             } // Movimenta o bloco para direita
             else if (teclado.keyDown(Keyboard.RIGHT_KEY)) {
-                blocos.getBlocos().get(0).x = blocos.getBlocos().get(0).x + 20;
-                blocos.getBlocos().get(1).x = blocos.getBlocos().get(1).x + 20;
-                blocos.getBlocos().get(2).x = blocos.getBlocos().get(2).x + 20;
-                blocos.getBlocos().get(3).x = blocos.getBlocos().get(3).x + 20;
+                mover = new Controlador(blocos.getBlocos(), rotacao, blocos.getTipoBloco());
+                blocos.setBlocos(mover.moverDir());
+            }else if (teclado.keyDown(Keyboard.DOWN_KEY)) {
+                mover = new Controlador(blocos.getBlocos(), rotacao, blocos.getTipoBloco());
+                blocos.setBlocos(mover.moverBaixo(20));
             }
             // Rotaciona o bloco
-            if (teclado.keyDown(Keyboard.ENTER_KEY)) {
+            if (teclado.keyDown(Keyboard.UP_KEY)) {
 
                 rotacao++;
 
