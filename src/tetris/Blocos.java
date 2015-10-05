@@ -39,9 +39,6 @@ public class Blocos {
          */
         int posObjCentral = this.posXInicialBloco;
 
-        this.tipoBloco = 2;
-        
-        
         if (this.tipoBloco == 0) {
             this.blocoJ(posObjCentral, corBloco);
         } else if (this.tipoBloco == 1) {
