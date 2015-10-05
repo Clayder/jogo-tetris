@@ -9,7 +9,7 @@ import java.util.List;
 public class Rotacao {
 
     private List<Objeto> bloco;
-    private int CHAO = 550; // onde fica o chao 
+    private int CHAO = 580; // onde fica o chao 
     int tipoBloco;
     int rotacao;
 

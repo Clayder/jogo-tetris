@@ -48,7 +48,7 @@ public class Cenario {
             
             Color vermelhoEscuro = new Color(235, 50, 50);
             // janela.drawText("Quadrao eixo x: " + quadrados.get(idQuadrado).x + "eixo y: " + quadrados.get(idQuadrado).y + "Lugar de queda: " + quadrados.get(idQuadrado).isOnFloor() + " id quadrado" + idQuadrado, 20, 20, vermelhoEscuro);
-            janela.drawText("obj:  " + blocos.getBlocos().get(0).x +" "+ blocos.getBlocos().get(1).x +" "+ blocos.getBlocos().get(2).x+" Rotacao: "+rotacao, 500, 80, vermelhoEscuro);
+            janela.drawText("obj:  " + blocos.getBlocos().get(0).y +" "+ blocos.getBlocos().get(1).y +" "+ blocos.getBlocos().get(2).y+" "+ blocos.getBlocos().get(3).y+" Rotacao: "+rotacao, 500, 80, vermelhoEscuro);
             
             
             /*

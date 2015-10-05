@@ -3,7 +3,6 @@ package tetris;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import javax.swing.JOptionPane;
 
 public class Blocos {
 
@@ -23,7 +22,7 @@ public class Blocos {
      */
     private int tipoBloco;
     private int posXInicialBloco;
-    private int CHAO = 550; // onde fica o chao 
+    private int CHAO = 580; // onde fica o chao 
     private Colisao colisao;
 
     public Blocos() {
@@ -39,8 +38,6 @@ public class Blocos {
          * marca a posicao do objeto central (objeto1)
          */
         int posObjCentral = this.posXInicialBloco;
-
-        this.tipoBloco = 6;
 
         if (this.tipoBloco == 0) {
             this.blocoJ(posObjCentral, corBloco);
@@ -233,10 +230,10 @@ public class Blocos {
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral, -40, "bloco1.png");
-        Objeto bloco1 = new Objeto(posObjCentral, 0, "bloco2.png");
-        Objeto bloco2 = new Objeto(posObjCentral, -20, "bloco3.png");
-        Objeto bloco3 = new Objeto(posObjCentral, 20, "bloco5.png");
+        Objeto bloco0 = new Objeto(posObjCentral, -40, corBloco);
+        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco);
+        Objeto bloco2 = new Objeto(posObjCentral, -20, corBloco);
+        Objeto bloco3 = new Objeto(posObjCentral, 20, corBloco);
 
         /*
          * Armazena os Objetos dentro da lista blocos 
