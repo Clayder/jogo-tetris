@@ -567,8 +567,21 @@ public class Rotacao {
          * -----
          */
         if (this.rotacao  == 1 && this.verificaRotacaoIesq() && verificaRotacaoIdir()) {
+            
+            int x1;
+            
+            
+            /*
+            * Se o bloco estiver na segunda coluna
+            */
+            if ((this.bloco.get(0).x == 40 && this.bloco.get(1).x == 40 && this.bloco.get(2).x == 40 && this.bloco.get(3).x == 40)) {
+                x1 = 40;
+            }
+            else{
+                x1 = -40;
+            }
             // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x - 40;
+            bloco.get(0).x = bloco.get(1).x + x1;
             bloco.get(0).y = bloco.get(1).y;
 
             // Movimenta o objeto2 em relação ao eixo x e y do objeto1
