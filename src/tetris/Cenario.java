@@ -1,9 +1,11 @@
 package tetris;
 
 import java.awt.Color;
+import java.awt.Point;
 import jplay.Keyboard;
 import jplay.Scene;
 import jplay.Sprite;
+import jplay.TileInfo;
 import jplay.Window;
 
 /**
@@ -20,6 +22,7 @@ public class Cenario {
     private Keyboard teclado;
     private Rotacao rot;
     private Controlador mover;
+    TileInfo teste;
 
     public Cenario(Window window) {
         janela = window;
@@ -31,9 +34,8 @@ public class Cenario {
         cena = new Scene();
         cena.loadFromFile("cenario.scn");
         cena.setDrawStartPos(0, 0); // posiciona o cenario
-        
-        
-        
+
+
         /*
          * Vai dar o ponta pé inicial criando um bloco com 4 objetos
          */
@@ -51,32 +53,40 @@ public class Cenario {
         while (true) {
 
             cena.draw();
-            
+
+            //Posicao min é a posição (x,y) do GameObject             
+            Point playerMin = new Point((int) blocos.getBlocos().get(0).x, (int) blocos.getBlocos().get(0).y);
+
+//Posicao max é a posição (x + largura, y + altura) do GameObject  
+            Point playerMax = new Point((int) (blocos.getBlocos().get(0).x + blocos.getBlocos().get(0).width), (int) (blocos.getBlocos().get(0).y + blocos.getBlocos().get(0).height));
+
             Color vermelhoEscuro = new Color(235, 50, 50);
             // janela.drawText("Quadrao eixo x: " + quadrados.get(idQuadrado).x + "eixo y: " + quadrados.get(idQuadrado).y + "Lugar de queda: " + quadrados.get(idQuadrado).isOnFloor() + " id quadrado" + idQuadrado, 20, 20, vermelhoEscuro);
-            janela.drawText("Rotacao: "+rotacao, 500, 80, vermelhoEscuro);
-            
+            janela.drawText("Rotacao: " + playerMin, 500, 80, vermelhoEscuro);
+
             /*
              * Imprime o bloco
              */
-            for (Sprite sp : blocos.getBlocos()) {
+            for (Sprite sp
+                    : blocos.getBlocos()) {
                 sp.draw();
                 sp.fall();
             }
-             
+
             // Movimenta o bloco para esquerda 
             if (teclado.keyDown(Keyboard.LEFT_KEY)) {
                 mover = new Controlador(blocos.getBlocos(), rotacao, blocos.getTipoBloco());
                 blocos.setBlocos(mover.moverEsq());
-                
+
             } // Movimenta o bloco para direita
             else if (teclado.keyDown(Keyboard.RIGHT_KEY)) {
                 mover = new Controlador(blocos.getBlocos(), rotacao, blocos.getTipoBloco());
                 blocos.setBlocos(mover.moverDir());
-            }else if (teclado.keyDown(Keyboard.DOWN_KEY)) {
+            } else if (teclado.keyDown(Keyboard.DOWN_KEY)) {
                 mover = new Controlador(blocos.getBlocos(), rotacao, blocos.getTipoBloco());
                 blocos.setBlocos(mover.moverBaixo(20));
             }
+
             // Rotaciona o bloco
             if (teclado.keyDown(Keyboard.UP_KEY)) {
 
@@ -102,7 +112,6 @@ public class Cenario {
                  *      setBlocos(List<Objeto>)
                  *      - Método que atualiza o bloco 
                  */
-                
                 rot = new Rotacao(blocos.getBlocos(), rotacao, blocos.getTipoBloco());
                 blocos.setBlocos(rot.rotacionar());
 
@@ -125,7 +134,5 @@ public class Cenario {
     public Scene getCena() {
         return cena;
     }
-    
-    
 
 }
