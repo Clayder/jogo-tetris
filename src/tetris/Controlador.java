@@ -56,6 +56,8 @@ public class Controlador {
         }
         else if(this.tipoBloco == 1){
             valor = this.verificaMovimentoLEsq();
+        }else if(this.tipoBloco == 2){
+            valor = this.verificaMovimentoTEsq();
         }
         return valor;
     }
@@ -69,6 +71,8 @@ public class Controlador {
             valor = this.verificaMovimentoJDir();
         }else if(this.tipoBloco == 1){
             valor = this.verificaMOvimentoLDir();
+        }else if(this.tipoBloco == 2){
+            valor = verificaMovimentoTDir();
         }
         return valor;
     }
@@ -127,6 +131,31 @@ public class Controlador {
     private boolean verificaMOvimentoLDir(){
         boolean valor = true;
         if (this.rotacao == 0 && (bloco.get(3).x == 400 || bloco.get(2).x == 400)) {
+            valor = false;
+        } else if (this.rotacao == 1 && (bloco.get(0).x == 400 && bloco.get(2).x == 400 && bloco.get(1).x == 400)) {
+            valor = false;
+        } else if (this.rotacao == 2 && (bloco.get(2).x == 400)) {
+            valor = false;
+        } else if (this.rotacao == 3 && (bloco.get(2).x == 400)) {
+            valor = false;
+        }
+        return valor; 
+    }
+
+    private boolean verificaMovimentoTEsq(){
+        boolean valor = true;
+       
+        if ((this.rotacao == 0 || this.rotacao == 1 || this.rotacao == 2) && bloco.get(3).x == 20) {
+            valor = false;
+        } else if (this.rotacao == 3 && (bloco.get(0).x == 20 && bloco.get(1).x == 20 && bloco.get(3).x == 20)) {
+            valor = false;
+        }
+        return valor;
+    }
+
+    private boolean verificaMovimentoTDir(){
+        boolean valor = true;
+        if (this.rotacao == 0 && bloco.get(0).x == 400 ) {
             valor = false;
         } else if (this.rotacao == 1 && (bloco.get(0).x == 400 && bloco.get(2).x == 400 && bloco.get(1).x == 400)) {
             valor = false;

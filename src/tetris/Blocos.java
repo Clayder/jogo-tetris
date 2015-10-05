@@ -39,7 +39,7 @@ public class Blocos {
          */
         int posObjCentral = this.posXInicialBloco;
 
-        this.tipoBloco = 1;
+        this.tipoBloco = 2;
         
         
         if (this.tipoBloco == 0) {
@@ -92,10 +92,10 @@ public class Blocos {
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral - 20, 0, "bloco1.png");
-        Objeto bloco1 = new Objeto(posObjCentral, 0, "bloco2.png");
-        Objeto bloco2 = new Objeto(posObjCentral - 20, 20, "bloco3.png");
-        Objeto bloco3 = new Objeto(posObjCentral + 20, 0, "bloco5.png");
+        Objeto bloco0 = new Objeto(posObjCentral - 20, 0, corBloco);
+        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco);
+        Objeto bloco2 = new Objeto(posObjCentral - 20, 20, corBloco);
+        Objeto bloco3 = new Objeto(posObjCentral + 20, 0, corBloco);
 
 
         /*
