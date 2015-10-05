@@ -3,6 +3,7 @@ package tetris;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 public class Blocos {
 
@@ -23,6 +24,7 @@ public class Blocos {
     private int tipoBloco;
     private int posXInicialBloco;
     private int CHAO = 550; // onde fica o chao 
+    private Colisao colisao;
 
     public Blocos() {
         this.gerarBlocoAleatorio();
@@ -37,6 +39,8 @@ public class Blocos {
          * marca a posicao do objeto central (objeto1)
          */
         int posObjCentral = this.posXInicialBloco;
+
+        this.tipoBloco = 6;
 
         if (this.tipoBloco == 0) {
             this.blocoJ(posObjCentral, corBloco);
@@ -83,114 +87,6 @@ public class Blocos {
         blocos.get(3).setFloor(CHAO);
     }
 
-    private List<Objeto> rotacionarJ(List<Objeto> bloco, int rotacao) {
-        /*
-         * Para rotacionar sempre iremos deixar o objeto1 "parado" e movimentar 
-         * os outros 3 objetos em relação ao objeto1
-         * O objeto1 vai ser o nosso centro.
-         */
-
-        /*
-         * ------|
-         *
-         */
-        if (rotacao == 0) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x - 20;
-            bloco.get(0).y = bloco.get(1).y;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x + 20;
-            bloco.get(2).y = bloco.get(1).y;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x + 20;
-            bloco.get(3).y = bloco.get(1).y + 20;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO - 20);
-            bloco.get(1).setFloor(CHAO - 20);
-            bloco.get(2).setFloor(CHAO - 20);
-            bloco.get(3).setFloor(CHAO);
-        }
-
-        /*
-         *    |
-         * ___|
-         */
-        if (rotacao == 1) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x;
-            bloco.get(0).y = bloco.get(1).y - 20;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x;
-            bloco.get(2).y = bloco.get(1).y + 20;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x - 20;
-            bloco.get(3).y = bloco.get(1).y + 20;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO - 40);
-            bloco.get(1).setFloor(CHAO - 20);
-            bloco.get(2).setFloor(CHAO);
-            bloco.get(3).setFloor(CHAO);
-        } /*
-         * |____
-         */ else if (rotacao == 2) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x - 20;
-            bloco.get(0).y = bloco.get(1).y - 20;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x + 20;
-            bloco.get(2).y = bloco.get(1).y;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x - 20;
-            bloco.get(3).y = bloco.get(1).y;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO - 20);
-            bloco.get(1).setFloor(CHAO);
-            bloco.get(2).setFloor(CHAO);
-            bloco.get(3).setFloor(CHAO);
-        } /*
-         *  __
-         *  |
-         *  |
-         */ else if (rotacao == 3) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x;
-            bloco.get(0).y = bloco.get(1).y - 20;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x + 20;
-            bloco.get(2).y = bloco.get(1).y - 20;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x;
-            bloco.get(3).y = bloco.get(1).y + 20;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO - 40);
-            bloco.get(1).setFloor(CHAO - 20);
-            bloco.get(2).setFloor(CHAO - 40);
-            bloco.get(3).setFloor(CHAO);
-        }
-
-        return bloco;
-    }
-
     private void blocoL(int posObjCentral, String corBloco) {
 
         /*
@@ -200,6 +96,7 @@ public class Blocos {
         Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco);
         Objeto bloco2 = new Objeto(posObjCentral - 20, 20, corBloco);
         Objeto bloco3 = new Objeto(posObjCentral + 20, 0, corBloco);
+
 
         /*
          * Armazena os Objetos dentro da lista blocos 
@@ -217,114 +114,6 @@ public class Blocos {
         blocos.get(1).setFloor(CHAO - 20);
         blocos.get(2).setFloor(CHAO);
         blocos.get(3).setFloor(CHAO - 20);
-    }
-
-    private List<Objeto> rotacionarL(List<Objeto> bloco, int rotacao) {
-        /*
-         * Para rotacionar sempre iremos deixar o objeto1 "parado" e movimentar 
-         * os outros 3 objetos em relação ao objeto1
-         * O objeto1 vai ser o nosso centro.
-         */
-
-        /*
-         * |------
-         *
-         */
-        if (rotacao == 0) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x - 20;
-            bloco.get(0).y = bloco.get(1).y;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x + 20;
-            bloco.get(2).y = bloco.get(1).y;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x - 20;
-            bloco.get(3).y = bloco.get(1).y + 20;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO - 20);
-            bloco.get(1).setFloor(CHAO - 20);
-            bloco.get(2).setFloor(CHAO - 20);
-            bloco.get(3).setFloor(CHAO);
-        }
-
-        /*
-         *  --|
-         *    |
-         */
-        if (rotacao == 1) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x;
-            bloco.get(0).y = bloco.get(1).y - 20;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x;
-            bloco.get(2).y = bloco.get(1).y + 20;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x - 20;
-            bloco.get(3).y = bloco.get(1).y - 20;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO - 40);
-            bloco.get(1).setFloor(CHAO - 20);
-            bloco.get(2).setFloor(CHAO);
-            bloco.get(3).setFloor(CHAO - 40);
-        } /*
-         * ____|
-         */ else if (rotacao == 2) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x + 20;
-            bloco.get(0).y = bloco.get(1).y - 20;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x + 20;
-            bloco.get(2).y = bloco.get(1).y;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x - 20;
-            bloco.get(3).y = bloco.get(1).y;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO - 20);
-            bloco.get(1).setFloor(CHAO);
-            bloco.get(2).setFloor(CHAO);
-            bloco.get(3).setFloor(CHAO);
-        } /*
-         *  |
-         *  |
-         *  ---
-         */ else if (rotacao == 3) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x;
-            bloco.get(0).y = bloco.get(1).y - 20;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x + 20;
-            bloco.get(2).y = bloco.get(1).y + 20;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x;
-            bloco.get(3).y = bloco.get(1).y + 20;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO - 40);
-            bloco.get(1).setFloor(CHAO - 20);
-            bloco.get(2).setFloor(CHAO);
-            bloco.get(3).setFloor(CHAO);
-        }
-
-        return bloco;
     }
 
     private void blocoT(int posObjCentral, String corBloco) {
@@ -353,115 +142,6 @@ public class Blocos {
         blocos.get(1).setFloor(CHAO - 20);
         blocos.get(2).setFloor(CHAO);
         blocos.get(3).setFloor(CHAO - 20);
-    }
-
-    private List<Objeto> rotacionarT(List<Objeto> bloco, int rotacao) {
-        /*
-         * Para rotacionar sempre iremos deixar o objeto1 "parado" e movimentar 
-         * os outros 3 objetos em relação ao objeto1
-         * O objeto1 vai ser o nosso centro.
-         */
-
-        /*
-         * ------
-         *    |
-         */
-        if (rotacao == 0) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x + 20;
-            bloco.get(0).y = bloco.get(1).y;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x;
-            bloco.get(2).y = bloco.get(1).y + 20;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x - 20;
-            bloco.get(3).y = bloco.get(1).y;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO - 20);
-            bloco.get(1).setFloor(CHAO - 20);
-            bloco.get(2).setFloor(CHAO);
-            bloco.get(3).setFloor(CHAO - 20);
-        }
-
-        /*
-         *    |
-         * ---
-         *    |
-         */
-        if (rotacao == 1) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x;
-            bloco.get(0).y = bloco.get(1).y - 20;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x;
-            bloco.get(2).y = bloco.get(1).y + 20;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x - 20;
-            bloco.get(3).y = bloco.get(1).y;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO - 40);
-            bloco.get(1).setFloor(CHAO - 20);
-            bloco.get(2).setFloor(CHAO);
-            bloco.get(3).setFloor(CHAO - 20);
-        } /*
-         * _____|____
-         */ else if (rotacao == 2) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x;
-            bloco.get(0).y = bloco.get(1).y - 20;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x + 20;
-            bloco.get(2).y = bloco.get(1).y;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x - 20;
-            bloco.get(3).y = bloco.get(1).y;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO - 20);
-            bloco.get(1).setFloor(CHAO);
-            bloco.get(2).setFloor(CHAO);
-            bloco.get(3).setFloor(CHAO);
-        } /*
-         *  |
-         *   ----
-         *  |
-         */ else if (rotacao == 3) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x;
-            bloco.get(0).y = bloco.get(1).y - 20;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x + 20;
-            bloco.get(2).y = bloco.get(1).y;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x;
-            bloco.get(3).y = bloco.get(1).y + 20;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO - 40);
-            bloco.get(1).setFloor(CHAO - 20);
-            bloco.get(2).setFloor(CHAO - 20);
-            bloco.get(3).setFloor(CHAO);
-        }
-
-        return bloco;
     }
 
     private void blocoO(int posObjCentral, String corBloco) {
@@ -520,69 +200,6 @@ public class Blocos {
         blocos.get(3).setFloor(CHAO - 20);
     }
 
-    private List<Objeto> rotacionarS(List<Objeto> bloco, int rotacao) {
-
-        /*
-         * Para rotacionar sempre iremos deixar o objeto1 "parado" e movimentar 
-         * os outros 3 objetos em relação ao objeto1
-         * O objeto1 vai ser o nosso centro.
-         */
-
-        /*
-         *     ----
-         *  ----
-         */
-        if (rotacao == 0) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x;
-            bloco.get(0).y = bloco.get(1).y - 20;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x - 20;
-            bloco.get(2).y = bloco.get(1).y;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x + 20;
-            bloco.get(3).y = bloco.get(1).y - 20;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO - 20);
-            bloco.get(1).setFloor(CHAO);
-            bloco.get(2).setFloor(CHAO);
-            bloco.get(3).setFloor(CHAO - 20);
-        }
-
-        /*
-         *  |
-         *   |
-         */
-        if (rotacao == 1) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x;
-            bloco.get(0).y = bloco.get(1).y - 20;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x + 20;
-            bloco.get(2).y = bloco.get(1).y + 20;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x + 20;
-            bloco.get(3).y = bloco.get(1).y;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO - 40);
-            bloco.get(1).setFloor(CHAO - 20);
-            bloco.get(2).setFloor(CHAO);
-            bloco.get(3).setFloor(CHAO - 20);
-        }
-
-        return bloco;
-    }
-
     private void blocoZ(int posObjCentral, String corBloco) {
 
         /*
@@ -611,69 +228,6 @@ public class Blocos {
         blocos.get(3).setFloor(CHAO - 20);
     }
 
-    private List<Objeto> rotacionarZ(List<Objeto> bloco, int rotacao) {
-
-        /*
-         * Para rotacionar sempre iremos deixar o objeto1 "parado" e movimentar 
-         * os outros 3 objetos em relação ao objeto1
-         * O objeto1 vai ser o nosso centro.
-         */
-
-        /*
-         * ----
-         *   ----
-         */
-        if (rotacao == 0) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x;
-            bloco.get(0).y = bloco.get(1).y - 20;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x + 20;
-            bloco.get(2).y = bloco.get(1).y;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x - 20;
-            bloco.get(3).y = bloco.get(1).y - 20;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO - 20);
-            bloco.get(1).setFloor(CHAO);
-            bloco.get(2).setFloor(CHAO);
-            bloco.get(3).setFloor(CHAO - 20);
-        }
-
-        /*
-         *   |
-         *  |
-         */
-        if (rotacao == 1) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x;
-            bloco.get(0).y = bloco.get(1).y - 20;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x - 20;
-            bloco.get(2).y = bloco.get(1).y + 20;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x - 20;
-            bloco.get(3).y = bloco.get(1).y;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO - 40);
-            bloco.get(1).setFloor(CHAO - 20);
-            bloco.get(2).setFloor(CHAO);
-            bloco.get(3).setFloor(CHAO - 20);
-        }
-
-        return bloco;
-    }
-
     private void blocoI(int posObjCentral, String corBloco) {
 
         /*
@@ -700,86 +254,6 @@ public class Blocos {
         blocos.get(1).setFloor(CHAO - 20);
         blocos.get(2).setFloor(CHAO - 40);
         blocos.get(3).setFloor(CHAO);
-    }
-
-    private List<Objeto> rotacionarI(List<Objeto> bloco, int rotacao) {
-
-        /*
-         * Para rotacionar sempre iremos deixar o objeto1 "parado" e movimentar 
-         * os outros 3 objetos em relação ao objeto1
-         * O objeto1 vai ser o nosso centro.
-         */
-
-        /*
-         *  |
-         *  |
-         */
-        if (rotacao == 0) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x;
-            bloco.get(0).y = bloco.get(1).y - 40;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x;
-            bloco.get(2).y = bloco.get(1).y - 20;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x;
-            bloco.get(3).y = bloco.get(1).y + 20;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO - 60);
-            bloco.get(1).setFloor(CHAO - 20);
-            bloco.get(2).setFloor(CHAO - 40);
-            bloco.get(3).setFloor(CHAO);
-        }
-
-        /*
-         * -----
-         */
-        if (rotacao == 1) {
-            // Movimenta o objeto0 em relação ao eixo x e y do objeto1
-            bloco.get(0).x = bloco.get(1).x - 40;
-            bloco.get(0).y = bloco.get(1).y;
-
-            // Movimenta o objeto2 em relação ao eixo x e y do objeto1
-            bloco.get(2).x = bloco.get(1).x - 20;
-            bloco.get(2).y = bloco.get(1).y;
-
-            // Movimenta o objeto3 em relação ao eixo x e y do objeto1
-            bloco.get(3).x = bloco.get(1).x + 20;
-            bloco.get(3).y = bloco.get(1).y;
-
-            /*
-             * Limite de parada de cada objeto
-             */
-            bloco.get(0).setFloor(CHAO);
-            bloco.get(1).setFloor(CHAO);
-            bloco.get(2).setFloor(CHAO);
-            bloco.get(3).setFloor(CHAO);
-        }
-
-        return bloco;
-    }
-
-    public List<Objeto> rotacionar(List<Objeto> bloco, int rotacao) {
-
-        if (tipoBloco == 0) {
-            bloco = this.rotacionarJ(bloco, rotacao);
-        } else if (tipoBloco == 1) {
-            bloco = this.rotacionarL(bloco, rotacao);
-        } else if (tipoBloco == 2) {
-            bloco = this.rotacionarT(bloco, rotacao);
-        } else if (tipoBloco == 3) {
-            bloco = this.rotacionarS(bloco, rotacao);
-        } else if (tipoBloco == 5) {
-            bloco = this.rotacionarZ(bloco, rotacao);
-        } else if (tipoBloco == 6) {
-            bloco = this.rotacionarI(bloco, rotacao);
-        }
-        return bloco;
     }
 
     public List<Objeto> getBlocos() {
@@ -861,8 +335,8 @@ public class Blocos {
     }
 
     /*
-    * Verifica se o bloco já chegou no chão
-    */
+     * Verifica se o bloco já chegou no chão
+     */
     public boolean blocoChao(List<Objeto> bloco) {
         if (bloco.get(0).isOnFloor() && bloco.get(1).isOnFloor() && bloco.get(2).isOnFloor() && bloco.get(3).isOnFloor()) {
             return true;

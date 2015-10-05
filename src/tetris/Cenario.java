@@ -18,6 +18,7 @@ public class Cenario {
     Blocos blocosTeste;
     int rotacao = 0;
     Keyboard teclado;
+    private Rotacao rot;
 
     public Cenario(Window window) {
         janela = window;
@@ -47,7 +48,7 @@ public class Cenario {
             
             Color vermelhoEscuro = new Color(235, 50, 50);
             // janela.drawText("Quadrao eixo x: " + quadrados.get(idQuadrado).x + "eixo y: " + quadrados.get(idQuadrado).y + "Lugar de queda: " + quadrados.get(idQuadrado).isOnFloor() + " id quadrado" + idQuadrado, 20, 20, vermelhoEscuro);
-            janela.drawText("Rotacao" + rotacao, 500, 80, vermelhoEscuro);
+            janela.drawText("obj:  " + blocos.getBlocos().get(0).x +" "+ blocos.getBlocos().get(1).x +" "+ blocos.getBlocos().get(2).x+" Rotacao: "+rotacao, 500, 80, vermelhoEscuro);
             
             
             /*
@@ -96,7 +97,9 @@ public class Cenario {
                  *      setBlocos(List<Objeto>)
                  *      - Método que atualiza o bloco 
                  */
-                blocos.setBlocos(blocos.rotacionar(blocos.getBlocos(), rotacao));
+                
+                rot = new Rotacao(blocos.getBlocos(), rotacao, blocos.getTipoBloco());
+                blocos.setBlocos(rot.rotacionar());
 
             }
 
@@ -113,5 +116,11 @@ public class Cenario {
             janela.update();
         }
     }
+
+    public Scene getCena() {
+        return cena;
+    }
+    
+    
 
 }
