@@ -47,20 +47,28 @@ public class Controlador {
     }
 
     /*
-     * Verifica se o bloco já chegou nas laterais 
+     * Verifica se o bloco já chegou na lateral esquerda
      */
     private boolean verificaMovimentoEsq() {
         boolean valor = true;
         if (this.tipoBloco == 0) {
             valor = this.verificaMovimentoJEsq();
         }
+        else if(this.tipoBloco == 1){
+            valor = this.verificaMovimentoLEsq();
+        }
         return valor;
     }
 
+    /*
+     * Verifica se o bloco já chegou na lateral direita
+     */
     private boolean verificaMovimentoDir() {
         boolean valor = true;
         if (this.tipoBloco == 0) {
             valor = this.verificaMovimentoJDir();
+        }else if(this.tipoBloco == 1){
+            valor = this.verificaMOvimentoLDir();
         }
         return valor;
     }
@@ -103,4 +111,30 @@ public class Controlador {
         return valor;
     }
 
+    private boolean verificaMovimentoLEsq() {
+        boolean valor = true;
+       
+        if (this.rotacao == 0 && (bloco.get(2).x == 20 && bloco.get(0).x == 20) || (bloco.get(3).x == 20 && bloco.get(0).x == 20)) {
+            valor = false;
+        } else if ((this.rotacao == 1 || this.rotacao == 2) && (bloco.get(3).x == 20)) {
+            valor = false;
+        } else if (this.rotacao == 3 && (bloco.get(0).x == 20 && bloco.get(1).x == 20 && bloco.get(3).x == 20)) {
+            valor = false;
+        }
+        return valor;
+    }
+
+    private boolean verificaMOvimentoLDir(){
+        boolean valor = true;
+        if (this.rotacao == 0 && (bloco.get(3).x == 400 || bloco.get(2).x == 400)) {
+            valor = false;
+        } else if (this.rotacao == 1 && (bloco.get(0).x == 400 && bloco.get(2).x == 400 && bloco.get(1).x == 400)) {
+            valor = false;
+        } else if (this.rotacao == 2 && (bloco.get(2).x == 400)) {
+            valor = false;
+        } else if (this.rotacao == 3 && (bloco.get(2).x == 400)) {
+            valor = false;
+        }
+        return valor; 
+    }
 }
