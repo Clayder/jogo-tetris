@@ -335,7 +335,8 @@ public class Blocos {
      * Verifica se o bloco já chegou no chão
      */
     public boolean blocoChao(List<Objeto> bloco) {
-        if (bloco.get(0).isOnFloor() && bloco.get(1).isOnFloor() && bloco.get(2).isOnFloor() && bloco.get(3).isOnFloor()) {
+        int limite;
+        if ((int)bloco.get(0).y == 560 || (int)bloco.get(1).y == 560 || (int)bloco.get(2).y == 560 || (int)bloco.get(3).y == 560) {
             return true;
         } else {
             return false;
