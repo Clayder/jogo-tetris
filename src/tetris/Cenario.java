@@ -133,7 +133,7 @@ public class Cenario {
             /*
              * Assim que os 4 objetos chegarem ao seu destino outros 4 vão ser criados 
              */
-            if (blocos.blocoChao(blocos.getBlocos())) {
+            if (blocos.blocoChao(blocos.getBlocos()) || blocos.colisao(this.matrizCenario, blocos.getBlocos())) {
 
                 this.armazenaBlocoTile(blocos.getBlocos());
                 this.printMatrizCenario();
@@ -156,23 +156,8 @@ public class Cenario {
      */
     private List<Integer> localizadorTile(int x, int y) {
         List<Integer> qual = new ArrayList<Integer>();
-        int contX = -1;
-        int contY = -1;
-        int i;
-        for (i = 0; i < 401; i = i + 20) {
-            contX++;
-            if (i == x) {
-                break;
-            }
-        }
-        for (i = 0; i < 601; i = i + 20) {
-            contY++;
-            if (i == y) {
-                break;
-            }
-        }
-        qual.add(contX);
-        qual.add(contY);
+        qual.add(x / 20);
+        qual.add(y / 20);
         return qual;
     }
 

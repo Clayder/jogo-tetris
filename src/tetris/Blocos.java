@@ -336,12 +336,33 @@ public class Blocos {
      */
     public boolean blocoChao(List<Objeto> bloco) {
         int limite;
-        if ((int)bloco.get(0).y == 560 || (int)bloco.get(1).y == 560 || (int)bloco.get(2).y == 560 || (int)bloco.get(3).y == 560) {
+        if ((int) bloco.get(0).y == 560 || (int) bloco.get(1).y == 560 || (int) bloco.get(2).y == 560 || (int) bloco.get(3).y == 560) {
             return true;
         } else {
             return false;
         }
 
+    }
+
+    public boolean colisao(int matrizCenario[][], List<Objeto> bloco) {
+        int linha;
+        int coluna;
+
+        for (int i = 0; i < 4; i++) {
+            /*
+            * Linha recebe a posicao atual do objeto + 20 
+            * - temos que somar 20, pois estamos interessado em saber se o proximo tile "casa" já possui algum objeto
+            * - não estamos interessados nas colisões laterais 
+            */
+            linha = ((int) bloco.get(i).y + 20) / 20;
+            coluna = (int) bloco.get(i).x / 20;
+            // Quando o primeiro objeto do bloco colidir retorna true
+            if (matrizCenario[linha][coluna] == 1) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
