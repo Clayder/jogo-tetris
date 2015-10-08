@@ -27,12 +27,16 @@ public class Cenario {
     private Keyboard teclado;
     private Rotacao rot;
     private Controlador mover;
+    /*
+     * matrizCenario é uma matriz que armazena o local que possui os blocos
+     */
     private int matrizCenario[][];
 
     GameImage imagem; // teste
     TileInfo teste; // teste
 
     public Cenario(Window window) {
+        this.criarMatrizCenario();
         janela = window;
         teclado = janela.getKeyboard();
         teclado.setBehavior(Keyboard.RIGHT_KEY, Keyboard.DETECT_INITIAL_PRESS_ONLY);
@@ -132,7 +136,7 @@ public class Cenario {
             if (blocos.blocoChao(blocos.getBlocos())) {
 
                 this.armazenaBlocoTile(blocos.getBlocos());
-                
+                this.printMatrizCenario();
                 rotacao = 0;
                 blocos = new Blocos();
                 blocos.getBlocos();
@@ -180,21 +184,66 @@ public class Cenario {
         List<Integer> paradaObj1 = new ArrayList<Integer>();
         List<Integer> paradaObj2 = new ArrayList<Integer>();
         List<Integer> paradaObj3 = new ArrayList<Integer>();
-        
+
         /*
-        * Envia as coordenadas X e Y para saber em qual tile o objeto está
-        */
+         * Envia as coordenadas X e Y para saber em qual tile o objeto está
+         */
         paradaObj0 = this.localizadorTile((int) bloco.get(0).x, (int) bloco.get(0).y);
         paradaObj1 = this.localizadorTile((int) bloco.get(1).x, (int) bloco.get(1).y);
         paradaObj2 = this.localizadorTile((int) bloco.get(2).x, (int) bloco.get(2).y);
         paradaObj3 = this.localizadorTile((int) bloco.get(3).x, (int) bloco.get(3).y);
 
         /*
-        * Armazena o objeto no tile
-        */
+         * Armazena o objeto no tile
+         */
         cena.changeTile(paradaObj0.get(1), paradaObj0.get(0), 3);
         cena.changeTile(paradaObj1.get(1), paradaObj1.get(0), 3);
         cena.changeTile(paradaObj2.get(1), paradaObj2.get(0), 3);
         cena.changeTile(paradaObj3.get(1), paradaObj3.get(0), 3);
+
+        /*
+         * Informo para a matriz cenario os lugares ocupados
+         */
+        this.matrizCenario[paradaObj0.get(1)][paradaObj0.get(0)] = 1;
+        this.matrizCenario[paradaObj1.get(1)][paradaObj1.get(0)] = 1;
+        this.matrizCenario[paradaObj2.get(1)][paradaObj2.get(0)] = 1;
+        this.matrizCenario[paradaObj3.get(1)][paradaObj3.get(0)] = 1;
+    }
+
+    /*
+     * insere -1 nas bordas e no chão 
+     */
+    private void criarMatrizCenario() {
+        this.matrizCenario = new int[30][22];
+        int linha;
+        int coluna;
+
+        for (linha = 0; linha < 30; linha++) {
+            for (coluna = 0; coluna < 22; coluna++) {
+                if (coluna == 0 || coluna == 21) {
+                    // borda esquerda
+                    this.matrizCenario[linha][0] = 999;
+                    // borda direita
+                    this.matrizCenario[linha][21] = 999;
+                } else if (linha == 29) {
+                    // chão
+                    this.matrizCenario[29][coluna] = 999;
+                } else {
+                    // lugar vazio
+                    this.matrizCenario[linha][coluna] = 0;
+                }
+            }
+        }
+    }
+
+    private void printMatrizCenario() {
+        int linha;
+        int coluna;
+
+        for (linha = 0; linha < 30; linha++) {
+            for (coluna = 0; coluna < 22; coluna++) {
+                System.out.println("["+linha+"]"+"["+coluna+"]"+"="+this.matrizCenario[linha][coluna]);
+            }
+        }
     }
 }
