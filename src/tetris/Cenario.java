@@ -131,27 +131,8 @@ public class Cenario {
              */
             if (blocos.blocoChao(blocos.getBlocos())) {
 
-                List<Integer> paradaObj0 = new ArrayList<Integer>();
-                List<Integer> paradaObj1 = new ArrayList<Integer>();
-                List<Integer> paradaObj2 = new ArrayList<Integer>();
-                List<Integer> paradaObj3 = new ArrayList<Integer>();
-                paradaObj0 = this.localizadorTile((int) blocos.getBlocos().get(0).x, (int) blocos.getBlocos().get(0).y);
-                paradaObj1 = this.localizadorTile((int) blocos.getBlocos().get(1).x, (int) blocos.getBlocos().get(1).y);
-                paradaObj2 = this.localizadorTile((int) blocos.getBlocos().get(2).x, (int) blocos.getBlocos().get(2).y);
-                paradaObj3 = this.localizadorTile((int) blocos.getBlocos().get(3).x, (int) blocos.getBlocos().get(3).y);
-                /*
-                JOptionPane.showMessageDialog(null,
-                        "Bloco0 X:" + (int) paradaObj0.get(1) + "Y: " + paradaObj0.get(0)
-                        + "Bloco1 X:" + (int) paradaObj1.get(1) + "Y: " + paradaObj1.get(0)
-                        + "Bloco2 X:" + (int) paradaObj2.get(1) + "Y: " + paradaObj2.get(0)
-                        + "Bloco3 X:" + (int) paradaObj3.get(1) + "Y: " + paradaObj3.get(0)
-                );
-                        */
-                cena.changeTile(paradaObj0.get(1), paradaObj0.get(0), 3);
-                cena.changeTile(paradaObj1.get(1), paradaObj1.get(0), 3);
-                cena.changeTile(paradaObj2.get(1), paradaObj2.get(0), 3);
-                cena.changeTile(paradaObj3.get(1), paradaObj3.get(0), 3);
-
+                this.armazenaBlocoTile(blocos.getBlocos());
+                
                 rotacao = 0;
                 blocos = new Blocos();
                 blocos.getBlocos();
@@ -166,7 +147,10 @@ public class Cenario {
         return cena;
     }
 
-    public List<Integer> localizadorTile(int x, int y) {
+    /*
+     * Localiza em qual tile que o objeto esta passando 
+     */
+    private List<Integer> localizadorTile(int x, int y) {
         List<Integer> qual = new ArrayList<Integer>();
         int contX = -1;
         int contY = -1;
@@ -188,4 +172,29 @@ public class Cenario {
         return qual;
     }
 
+    /*
+     * Armazena o bloco no tile 
+     */
+    private void armazenaBlocoTile(List<Objeto> bloco) {
+        List<Integer> paradaObj0 = new ArrayList<Integer>();
+        List<Integer> paradaObj1 = new ArrayList<Integer>();
+        List<Integer> paradaObj2 = new ArrayList<Integer>();
+        List<Integer> paradaObj3 = new ArrayList<Integer>();
+        
+        /*
+        * Envia as coordenadas X e Y para saber em qual tile o objeto está
+        */
+        paradaObj0 = this.localizadorTile((int) bloco.get(0).x, (int) bloco.get(0).y);
+        paradaObj1 = this.localizadorTile((int) bloco.get(1).x, (int) bloco.get(1).y);
+        paradaObj2 = this.localizadorTile((int) bloco.get(2).x, (int) bloco.get(2).y);
+        paradaObj3 = this.localizadorTile((int) bloco.get(3).x, (int) bloco.get(3).y);
+
+        /*
+        * Armazena o objeto no tile
+        */
+        cena.changeTile(paradaObj0.get(1), paradaObj0.get(0), 3);
+        cena.changeTile(paradaObj1.get(1), paradaObj1.get(0), 3);
+        cena.changeTile(paradaObj2.get(1), paradaObj2.get(0), 3);
+        cena.changeTile(paradaObj3.get(1), paradaObj3.get(0), 3);
+    }
 }
