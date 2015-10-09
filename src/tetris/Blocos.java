@@ -23,7 +23,7 @@ public class Blocos {
     private int tipoBloco;
     private int posXInicialBloco;
     private int CHAO = 580; // onde fica o chao 
-    private Colisao colisao;
+ 
 
     public Blocos() {
         this.gerarBlocoAleatorio();
@@ -361,7 +361,6 @@ public class Blocos {
                 return true;
             }
         }
-
         return false;
     }
 

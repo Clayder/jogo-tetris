@@ -34,6 +34,7 @@ public class Cenario {
 
     GameImage imagem; // teste
     TileInfo teste; // teste
+    Pontuacao pont;
 
     public Cenario(Window window) {
         this.criarMatrizCenario();
@@ -47,6 +48,7 @@ public class Cenario {
         cena.loadFromFile("cenario.scn");
         cena.setDrawStartPos(0, 0); // posiciona o cenario
 
+        Pontuacao pont = new Pontuacao();
 
         /*
          * Vai dar o ponta pé inicial criando um bloco com 4 objetos
@@ -74,8 +76,9 @@ public class Cenario {
 
             Color vermelhoEscuro = new Color(235, 50, 50);
             // janela.drawText("Quadrao eixo x: " + quadrados.get(idQuadrado).x + "eixo y: " + quadrados.get(idQuadrado).y + "Lugar de queda: " + quadrados.get(idQuadrado).isOnFloor() + " id quadrado" + idQuadrado, 20, 20, vermelhoEscuro);
-            janela.drawText("Rotacao: " + (int) blocos.getBlocos().get(0).y, 500, 80, vermelhoEscuro);
-            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+            //janela.drawText("Pontuacao: " + pont.pontuacao(matrizCenario), 500, 80, vermelhoEscuro);
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
             /*
              * Imprime o bloco
@@ -134,9 +137,9 @@ public class Cenario {
              * Assim que os 4 objetos chegarem ao seu destino outros 4 vão ser criados 
              */
             if (blocos.blocoChao(blocos.getBlocos()) || blocos.colisao(this.matrizCenario, blocos.getBlocos())) {
-
                 this.armazenaBlocoTile(blocos.getBlocos());
-                this.printMatrizCenario();
+                this.pontuacao(); // teste
+                this.printMatrizCenario(); // teste
                 rotacao = 0;
                 blocos = new Blocos();
                 blocos.getBlocos();
@@ -227,8 +230,85 @@ public class Cenario {
 
         for (linha = 0; linha < 30; linha++) {
             for (coluna = 0; coluna < 22; coluna++) {
-                System.out.println("["+linha+"]"+"["+coluna+"]"+"="+this.matrizCenario[linha][coluna]);
+                System.out.println("[" + linha + "]" + "[" + coluna + "]" + "=" + this.matrizCenario[linha][coluna]);
             }
+        }
+    }
+
+    /* teste da pontuacao */
+    private int verificaPont() {
+        int contPonto = 0;
+        int linha;
+        int coluna;
+
+        for (linha = 0; linha < 30; linha++) {
+            for (coluna = 0; coluna < 22; coluna++) {
+                if (this.matrizCenario[linha][coluna] == 1) {
+                    contPonto++;
+                }
+            }
+            if (contPonto == 20) {
+                //this.PONTUACAO++;
+                return linha;
+            }
+            contPonto = 0;
+        }
+        return -1;
+    }
+
+    private void percorrerLinha(int linhaPonto) {
+        int linha;
+        int coluna;
+        /*
+         verifica se a linha 28 é a unica linha do jogo
+         linha 28 é a última linha
+         */
+       // if (linhaPonto == 28 && this.verificaLinha(27)) {
+           // this.removerLinha(28, 1);
+        //} else {
+        
+            for (linha = linhaPonto; linha >= 0; linha--) {
+                for (coluna = 1; coluna < 21; coluna++) {
+                    this.removerLinha(linhaPonto, cena.getTile(linha, coluna).id);
+                    if (this.verificaLinha(linha - 1)) {
+                        if (cena.getTile(linha - 1, coluna).id != 1) {
+                            cena.changeTile(linha , coluna, cena.getTile(linha - 1, coluna).id);
+                        }
+                    }
+                    else{
+                        
+                        break;
+                    }
+                }
+          //  }
+        }
+
+    }
+
+    private void removerLinha(int linha, int tile) {
+        int coluna;
+        for (coluna = 1; coluna < 21; coluna++) {
+            this.cena.changeTile(linha, coluna, tile);
+        }
+    }
+    
+    // verifica se a linha possui objetos
+
+    private boolean verificaLinha(int linha) {
+        int coluna;
+        boolean verifica = false;
+        for (coluna = 1; coluna < 21; coluna++) {
+            if (this.matrizCenario[linha][coluna] == 1) {
+                verifica = true;
+            }
+        }
+        return verifica;
+    }
+
+    public void pontuacao() {
+        int linhaPont = this.verificaPont();
+        if (linhaPont != -1) {
+            this.percorrerLinha(linhaPont);
         }
     }
 }
