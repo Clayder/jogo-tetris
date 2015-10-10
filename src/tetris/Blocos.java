@@ -23,7 +23,7 @@ public class Blocos {
     private int tipoBloco;
     private int posXInicialBloco;
     private int CHAO = 580; // onde fica o chao 
- 
+    private int idCorBloco;
 
     public Blocos() {
         this.gerarBlocoAleatorio();
@@ -280,15 +280,28 @@ public class Blocos {
         // gera um numero aleatório entre 0 e 5
         int cor = gerador.nextInt(5);
         this.addCoresObjeto();
-
+        this.idTileObjeto(cor);
         return coresObjeto.get(cor);
+    }
+
+    /*
+    * insere no atributo idCorBloco o id da imagem .png
+    * esse id vem do arquivo cenario.scn
+    * id-3 -> bloco1.png
+    * id-4 -> bloco2.png
+    * id-5 -> bloco3.png
+    * id-6 -> bloco4.png
+    * id-7 -> bloco5.png
+    */
+    private void idTileObjeto(int cor) {
+        this.idCorBloco = cor + 3;
     }
 
     private void gerarBlocoAleatorio() {
 
         Random gerador = new Random();
         // gera um numero aleatório entre 0 e 6
-        this.tipoBloco = gerador.nextInt(6);
+        this.tipoBloco = gerador.nextInt(7);
 
         /*
          * recebe uma lista onde cada campo é um valor possivel (eixo x) para o bloco
@@ -350,10 +363,10 @@ public class Blocos {
 
         for (int i = 0; i < 4; i++) {
             /*
-            * Linha recebe a posicao atual do objeto + 20 
-            * - temos que somar 20, pois estamos interessado em saber se o proximo tile "casa" já possui algum objeto
-            * - não estamos interessados nas colisões laterais 
-            */
+             * Linha recebe a posicao atual do objeto + 20 
+             * - temos que somar 20, pois estamos interessado em saber se o proximo tile "casa" já possui algum objeto
+             * - não estamos interessados nas colisões laterais 
+             */
             linha = ((int) bloco.get(i).y + 20) / 20;
             coluna = (int) bloco.get(i).x / 20;
             // Quando o primeiro objeto do bloco colidir retorna true
@@ -363,5 +376,10 @@ public class Blocos {
         }
         return false;
     }
+
+    public int getIdCorBloco() {
+        return idCorBloco;
+    }
+
 
 }

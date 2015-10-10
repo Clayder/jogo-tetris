@@ -92,12 +92,12 @@ public class Cenario {
 
             // Movimenta o bloco para esquerda 
             if (teclado.keyDown(Keyboard.LEFT_KEY)) {
-                mover = new Controlador(blocos.getBlocos(), rotacao, blocos.getTipoBloco());
+                mover = new Controlador(blocos.getBlocos(), rotacao, blocos.getTipoBloco(), this.matrizCenario);
                 blocos.setBlocos(mover.moverEsq());
 
             } // Movimenta o bloco para direita
             else if (teclado.keyDown(Keyboard.RIGHT_KEY)) {
-                mover = new Controlador(blocos.getBlocos(), rotacao, blocos.getTipoBloco());
+                mover = new Controlador(blocos.getBlocos(), rotacao, blocos.getTipoBloco(), this.matrizCenario);
                 blocos.setBlocos(mover.moverDir());
             } else if (teclado.keyDown(Keyboard.DOWN_KEY)) {
                 mover = new Controlador(blocos.getBlocos(), rotacao, blocos.getTipoBloco());
@@ -140,9 +140,6 @@ public class Cenario {
             if (blocos.blocoChao(blocos.getBlocos()) || blocos.colisao(this.matrizCenario, blocos.getBlocos())) {
                 this.armazenaBlocoTile(blocos.getBlocos());
                 this.pontuacao(); // teste
-                System.err.println(this.testeLinha);
-
-                //this.printMatrizCenario(); // teste
                 rotacao = 0;
                 blocos = new Blocos();
                 blocos.getBlocos();
@@ -187,10 +184,10 @@ public class Cenario {
         /*
          * Armazena o objeto no tile
          */
-        cena.changeTile(paradaObj0.get(1), paradaObj0.get(0), 3);
-        cena.changeTile(paradaObj1.get(1), paradaObj1.get(0), 3);
-        cena.changeTile(paradaObj2.get(1), paradaObj2.get(0), 3);
-        cena.changeTile(paradaObj3.get(1), paradaObj3.get(0), 3);
+        cena.changeTile(paradaObj0.get(1), paradaObj0.get(0), blocos.getIdCorBloco());
+        cena.changeTile(paradaObj1.get(1), paradaObj1.get(0), blocos.getIdCorBloco());
+        cena.changeTile(paradaObj2.get(1), paradaObj2.get(0), blocos.getIdCorBloco());
+        cena.changeTile(paradaObj3.get(1), paradaObj3.get(0), blocos.getIdCorBloco());
 
         /*
          * Informo para a matriz cenario os lugares ocupados
@@ -275,6 +272,11 @@ public class Cenario {
             for (coluna = 1; coluna < 21; coluna++) {
 
                 if (this.verificaLinha(linha - 1)) {
+                    if(cena.getTile(linha - 1, coluna).id == 1){
+                        this.matrizCenario[linha][coluna] = 0;
+                    }else{
+                        this.matrizCenario[linha][coluna] = 1;
+                    }
                     cena.changeTile(linha, coluna, cena.getTile(linha - 1, coluna).id);
                 } else {
                     this.removerLinha(linha - 1, 1);
