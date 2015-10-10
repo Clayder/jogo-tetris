@@ -34,6 +34,7 @@ public class Cenario {
 
     GameImage imagem; // teste
     TileInfo teste; // teste
+    int testeLinha; // teste
     Pontuacao pont;
 
     public Cenario(Window window) {
@@ -139,7 +140,9 @@ public class Cenario {
             if (blocos.blocoChao(blocos.getBlocos()) || blocos.colisao(this.matrizCenario, blocos.getBlocos())) {
                 this.armazenaBlocoTile(blocos.getBlocos());
                 this.pontuacao(); // teste
-                this.printMatrizCenario(); // teste
+                System.err.println(this.testeLinha);
+
+                //this.printMatrizCenario(); // teste
                 rotacao = 0;
                 blocos = new Blocos();
                 blocos.getBlocos();
@@ -264,23 +267,21 @@ public class Cenario {
          linha 28 é a última linha
          */
        // if (linhaPonto == 28 && this.verificaLinha(27)) {
-           // this.removerLinha(28, 1);
+        // this.removerLinha(28, 1);
         //} else {
-        
-            for (linha = linhaPonto; linha >= 0; linha--) {
-                for (coluna = 1; coluna < 21; coluna++) {
-                    this.removerLinha(linhaPonto, cena.getTile(linha, coluna).id);
-                    if (this.verificaLinha(linha - 1)) {
-                        if (cena.getTile(linha - 1, coluna).id != 1) {
-                            cena.changeTile(linha , coluna, cena.getTile(linha - 1, coluna).id);
-                        }
-                    }
-                    else{
-                        
-                        break;
-                    }
+
+        for (linha = linhaPonto; linha > 0; linha--) {
+
+            for (coluna = 1; coluna < 21; coluna++) {
+
+                if (this.verificaLinha(linha - 1)) {
+                    cena.changeTile(linha, coluna, cena.getTile(linha - 1, coluna).id);
+                } else {
+                    this.removerLinha(linha - 1, 1);
+                    break;
                 }
-          //  }
+            }
+
         }
 
     }
@@ -291,9 +292,8 @@ public class Cenario {
             this.cena.changeTile(linha, coluna, tile);
         }
     }
-    
-    // verifica se a linha possui objetos
 
+    // verifica se a linha possui objetos
     private boolean verificaLinha(int linha) {
         int coluna;
         boolean verifica = false;
