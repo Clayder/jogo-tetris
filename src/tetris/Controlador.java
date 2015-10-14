@@ -1,6 +1,7 @@
 package tetris;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,7 +30,6 @@ public class Controlador {
     }
 
     public List<Objeto> moverEsq() {
-        this.linhaTeste = 99999;
         if (this.verificaMovimentoLateralEsq()) {
             bloco.get(0).x = bloco.get(0).x - 20;
             bloco.get(1).x = bloco.get(1).x - 20;
@@ -65,9 +65,9 @@ public class Controlador {
         boolean valor = true;
         if (bloco.get(0).x == 20 || bloco.get(1).x == 20 || bloco.get(2).x == 20 || bloco.get(3).x == 20) {
             valor = false;
-        }// else {
-          //  valor = this.esquerdaLivre();
-        //}
+        } else {
+            valor = this.esquerdaLivre();
+        }
         return valor;
     }
 
@@ -76,9 +76,11 @@ public class Controlador {
      * Se algum objeto estiver nessa útima posição o bloco não pode mais se movimentar
      */
     private boolean verificaMovimentoLateralDir() {
-        boolean valor = true;
+        boolean valor;
         if (bloco.get(0).x == 400 || bloco.get(1).x == 400 || bloco.get(2).x == 400 || bloco.get(3).x == 400) {
             valor = false;
+        } else {
+            valor = this.direitaLivre();
         }
         return valor;
     }
@@ -88,16 +90,34 @@ public class Controlador {
         int linha;
         int coluna;
 
-        //for (i = 0; i < 4; i++) {
+        for (i = 0; i < 4; i++) {
 
-            linha = (int) (this.bloco.get(0).y / 20);
-            coluna = (int) (this.bloco.get(0).x / 20);
-            this.linhaTeste = 888;
-            this.colunaTeste = (int) this.bloco.get(0).x;
-            if(this.matrizCenario[linha][coluna - 1] == 1){
+            linha = (int) (this.bloco.get(i).y / 20);
+            coluna = (int) (this.bloco.get(i).x / 20);
+
+            if (this.matrizCenario[linha][coluna - 1] == 1) {
                 return false;
             }
-       // }
+
+        }
         return true;
     }
+
+    private boolean direitaLivre() {
+        int i;
+        int linha;
+        int coluna;
+
+        for (i = 0; i < 4; i++) {
+
+            linha = (int) (this.bloco.get(i).y / 20);
+            coluna = (int) (this.bloco.get(i).x / 20);
+            if (this.matrizCenario[linha][coluna + 1] == 1) {
+                return false;
+            }
+
+        }
+        return true;
+    }
+
 }

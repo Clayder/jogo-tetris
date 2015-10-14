@@ -9,6 +9,7 @@ import jplay.GameImage;
 import jplay.GameObject;
 import jplay.Keyboard;
 import jplay.Scene;
+import jplay.Sound;
 import jplay.Sprite;
 import jplay.TileInfo;
 import jplay.Window;
@@ -67,7 +68,6 @@ public class Cenario {
 
     private void run() {
         while (loop) {
-
             cena.draw();
 
             /*
@@ -94,8 +94,6 @@ public class Cenario {
             // Movimenta o bloco para esquerda 
             if (teclado.keyDown(Keyboard.LEFT_KEY)) {
                 mover = new Controlador(blocos.getBlocos(), rotacao, blocos.getTipoBloco(), this.matrizCenario);
-               System.err.println(mover.colunaTeste);
-                System.err.println(mover.linhaTeste);
                 blocos.setBlocos(mover.moverEsq());
 
             } // Movimenta o bloco para direita
@@ -150,8 +148,8 @@ public class Cenario {
                 this.armazenaBlocoTile(blocos.getBlocos());
                 this.pontuacao(); 
                 
-                this.printMatrizCenario();
-                if(this.pontuacao == 1){
+               // this.printMatrizCenario();
+                if(this.pontuacao == 3){
                     this.nivel = this.nivel + 1;
                     this.pontuacao = 0;
                     this.blocos.setQtdGravidade(2*this.blocos.getQtdGravidade());

@@ -175,10 +175,10 @@ public class Blocos {
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral, -20, corBloco, Blocos.qtdGravidade);
-        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco, Blocos.qtdGravidade);
-        Objeto bloco2 = new Objeto(posObjCentral - 20, 0, corBloco, Blocos.qtdGravidade);
-        Objeto bloco3 = new Objeto(posObjCentral + 20, -20, corBloco, Blocos.qtdGravidade);
+        Objeto bloco0 = new Objeto(posObjCentral, 0, corBloco, Blocos.qtdGravidade);
+        Objeto bloco1 = new Objeto(posObjCentral, 20, corBloco, Blocos.qtdGravidade);
+        Objeto bloco2 = new Objeto(posObjCentral - 20, 20, corBloco, Blocos.qtdGravidade);
+        Objeto bloco3 = new Objeto(posObjCentral + 20, 0, corBloco, Blocos.qtdGravidade);
 
         /*
          * Armazena os Objetos dentro da lista blocos 
@@ -203,10 +203,10 @@ public class Blocos {
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral, -20, corBloco, Blocos.qtdGravidade);
-        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco, Blocos.qtdGravidade);
-        Objeto bloco2 = new Objeto(posObjCentral + 20, 0, corBloco, Blocos.qtdGravidade);
-        Objeto bloco3 = new Objeto(posObjCentral - 20, -20, corBloco, Blocos.qtdGravidade);
+        Objeto bloco0 = new Objeto(posObjCentral, 0, corBloco, Blocos.qtdGravidade);
+        Objeto bloco1 = new Objeto(posObjCentral, 20, corBloco, Blocos.qtdGravidade);
+        Objeto bloco2 = new Objeto(posObjCentral + 20, 20, corBloco, Blocos.qtdGravidade);
+        Objeto bloco3 = new Objeto(posObjCentral - 20, 0, corBloco, Blocos.qtdGravidade);
 
         /*
          * Armazena os Objetos dentro da lista blocos 
@@ -231,10 +231,10 @@ public class Blocos {
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral, -40, corBloco, Blocos.qtdGravidade);
-        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco, Blocos.qtdGravidade);
-        Objeto bloco2 = new Objeto(posObjCentral, -20, corBloco, Blocos.qtdGravidade);
-        Objeto bloco3 = new Objeto(posObjCentral, 20, corBloco, Blocos.qtdGravidade);
+        Objeto bloco0 = new Objeto(posObjCentral, 0, corBloco, Blocos.qtdGravidade);
+        Objeto bloco1 = new Objeto(posObjCentral, 40, corBloco, Blocos.qtdGravidade);
+        Objeto bloco2 = new Objeto(posObjCentral, 20, corBloco, Blocos.qtdGravidade);
+        Objeto bloco3 = new Objeto(posObjCentral, 60, corBloco, Blocos.qtdGravidade);
 
         /*
          * Armazena os Objetos dentro da lista blocos 
