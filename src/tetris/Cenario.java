@@ -22,11 +22,11 @@ public class Cenario {
     private Window janela;
     private Scene cena;
     private Blocos blocos;
-    private Blocos blocosTeste;
     private int rotacao = 0;
     private Keyboard teclado;
     private Rotacao rot;
     private Controlador mover;
+    private boolean loop;
     /*
      * matrizCenario é uma matriz que armazena o local que possui os blocos
      */
@@ -48,7 +48,7 @@ public class Cenario {
         cena = new Scene();
         cena.loadFromFile("cenario.scn");
         cena.setDrawStartPos(0, 0); // posiciona o cenario
-
+        this.loop = true;
         Pontuacao pont = new Pontuacao();
 
         /*
@@ -65,7 +65,7 @@ public class Cenario {
     }
 
     private void run() {
-        while (true) {
+        while (loop) {
 
             cena.draw();
 
@@ -93,12 +93,15 @@ public class Cenario {
             // Movimenta o bloco para esquerda 
             if (teclado.keyDown(Keyboard.LEFT_KEY)) {
                 mover = new Controlador(blocos.getBlocos(), rotacao, blocos.getTipoBloco(), this.matrizCenario);
+               System.err.println(mover.colunaTeste);
+                System.err.println(mover.linhaTeste);
                 blocos.setBlocos(mover.moverEsq());
 
             } // Movimenta o bloco para direita
             else if (teclado.keyDown(Keyboard.RIGHT_KEY)) {
                 mover = new Controlador(blocos.getBlocos(), rotacao, blocos.getTipoBloco(), this.matrizCenario);
                 blocos.setBlocos(mover.moverDir());
+                
             } else if (teclado.keyDown(Keyboard.DOWN_KEY)) {
                 mover = new Controlador(blocos.getBlocos(), rotacao, blocos.getTipoBloco());
                 blocos.setBlocos(mover.moverBaixo(20));
@@ -133,13 +136,21 @@ public class Cenario {
                 blocos.setBlocos(rot.rotacionar());
 
             }
+            
+            if(this.gameOver()){
+                JOptionPane.showMessageDialog(null, "Game Over");
+                this.loop = false;
+            }
 
             /*
              * Assim que os 4 objetos chegarem ao seu destino outros 4 vão ser criados 
              */
-            if (blocos.blocoChao(blocos.getBlocos()) || blocos.colisao(this.matrizCenario, blocos.getBlocos())) {
+            if ((blocos.blocoChao(blocos.getBlocos()) || blocos.colisao(this.matrizCenario, blocos.getBlocos())) ) {
                 this.armazenaBlocoTile(blocos.getBlocos());
-                this.pontuacao(); // teste
+                this.pontuacao(); 
+                
+                this.printMatrizCenario();
+                
                 rotacao = 0;
                 blocos = new Blocos();
                 blocos.getBlocos();
@@ -259,14 +270,7 @@ public class Cenario {
     private void percorrerLinha(int linhaPonto) {
         int linha;
         int coluna;
-        /*
-         verifica se a linha 28 é a unica linha do jogo
-         linha 28 é a última linha
-         */
-       // if (linhaPonto == 28 && this.verificaLinha(27)) {
-        // this.removerLinha(28, 1);
-        //} else {
-
+        
         for (linha = linhaPonto; linha > 0; linha--) {
 
             for (coluna = 1; coluna < 21; coluna++) {
@@ -313,4 +317,16 @@ public class Cenario {
             this.percorrerLinha(linhaPont);
         }
     }
+
+    private boolean gameOver(){
+        int coluna;
+       
+            for(coluna = 1; coluna < 21; coluna++){
+                if(this.matrizCenario[20][coluna] == 1){
+                    return true;
+                }
+            }
+            return false;
+    }
+
 }

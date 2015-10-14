@@ -12,6 +12,8 @@ public class Controlador {
     private int rotacao;
     private int tipoBloco;
     private int matrizCenario[][];
+    public int linhaTeste;
+    public int colunaTeste;
 
     public Controlador(List<Objeto> bloco, int rotacao, int tipoBloco, int matrizCenario[][]) {
         this.bloco = bloco;
@@ -27,6 +29,7 @@ public class Controlador {
     }
 
     public List<Objeto> moverEsq() {
+        this.linhaTeste = 99999;
         if (this.verificaMovimentoLateralEsq()) {
             bloco.get(0).x = bloco.get(0).x - 20;
             bloco.get(1).x = bloco.get(1).x - 20;
@@ -54,15 +57,25 @@ public class Controlador {
         return bloco;
     }
 
+    /*
+     * verifica se algum objeto do bloco já está na última posição da lateral esquerda
+     * Se algum objeto estiver nessa útima posição o bloco não pode mais se movimentar
+     */
     private boolean verificaMovimentoLateralEsq() {
         boolean valor = true;
         if (bloco.get(0).x == 20 || bloco.get(1).x == 20 || bloco.get(2).x == 20 || bloco.get(3).x == 20) {
             valor = false;
-        }
+        }// else {
+          //  valor = this.esquerdaLivre();
+        //}
         return valor;
     }
-    
-     private boolean verificaMovimentoLateralDir() {
+
+    /*
+     * verifica se algum objeto do bloco já está na última posição da lateral direita
+     * Se algum objeto estiver nessa útima posição o bloco não pode mais se movimentar
+     */
+    private boolean verificaMovimentoLateralDir() {
         boolean valor = true;
         if (bloco.get(0).x == 400 || bloco.get(1).x == 400 || bloco.get(2).x == 400 || bloco.get(3).x == 400) {
             valor = false;
@@ -70,226 +83,21 @@ public class Controlador {
         return valor;
     }
 
-    /*
-     * Verifica se o bloco já chegou na lateral esquerda
-     
-     private boolean verificaMovimentoEsq() {
-     boolean valor = true;
-     if (this.tipoBloco == 0) {
-     valor = this.verificaMovimentoJEsq();
-     } else if (this.tipoBloco == 1) {
-     valor = this.verificaMovimentoLEsq();
-     } else if (this.tipoBloco == 2) {
-     valor = this.verificaMovimentoTEsq();
-     } else if (this.tipoBloco == 3) {
-     valor = this.verificaMovimentoSEsq();
-     } else if (this.tipoBloco == 4) {
-     valor = this.verificaMovimentoOEsq();
-     } else if (this.tipoBloco == 5) {
-     valor = this.verificaMovimentoZEsq();
-     } else if (this.tipoBloco == 6) {
-     valor = this.verificaMovimentoIEsq();
-     }
-     return valor;
-     }
+    private boolean esquerdaLivre() {
+        int i;
+        int linha;
+        int coluna;
 
-     /*
-     * Verifica se o bloco já chegou na lateral direita
-     
-     private boolean verificaMovimentoDir() {
-     boolean valor = true;
-     if (this.tipoBloco == 0) {
-     valor = this.verificaMovimentoJDir();
-     } else if (this.tipoBloco == 1) {
-     valor = this.verificaMOvimentoLDir();
-     } else if (this.tipoBloco == 2) {
-     valor = verificaMovimentoTDir();
-     } else if (this.tipoBloco == 3) {
-     valor = this.verificaMovimentoSDir();
-     } else if (this.tipoBloco == 4) {
-     valor = this.verificaMovimentoODir();
-     } else if (this.tipoBloco == 5) {
-     valor = this.verificaMovimentoZDir();
-     } else if (this.tipoBloco == 6) {
-     valor = this.verificaMovimentoIDir();
-     }
-     return valor;
-     }
+        //for (i = 0; i < 4; i++) {
 
-     private boolean verificaMovimentoJEsq() {
-     boolean valor = true;
-     /*
-     *    --------|  
-     *            |
-     *
-         
-     if (this.rotacao == 0 && (bloco.get(0).x == 20)) {
-     valor = false;
-     } else if (this.rotacao == 1 && (bloco.get(3).x == 20)) {
-     valor = false;
-     } else if (this.rotacao == 2 && (bloco.get(0).x == 20 && bloco.get(3).x == 20)) {
-     valor = false;
-     } else if (this.rotacao == 3 && (bloco.get(0).x == 20 && bloco.get(1).x == 20 && bloco.get(3).x == 20)) {
-     valor = false;
-     }
-     return valor;
-     }
-
-     private boolean verificaMovimentoJDir() {
-     boolean valor = true;
-     /*
-     *    --------|  
-     *            |
-     *
-         
-     if (this.rotacao == 0 && (bloco.get(2).x == 400 && bloco.get(3).x == 400)) {
-     valor = false;
-     } else if (this.rotacao == 1 && (bloco.get(0).x == 400 && bloco.get(2).x == 400 && bloco.get(1).x == 400)) {
-     valor = false;
-     } else if (this.rotacao == 2 && (bloco.get(2).x == 400)) {
-     valor = false;
-     } else if (this.rotacao == 3 && (bloco.get(2).x == 400)) {
-     valor = false;
-     }
-     return valor;
-     }
-
-     private boolean verificaMovimentoLEsq() {
-     boolean valor = true;
-
-     if (this.rotacao == 0 && (bloco.get(2).x == 20 && bloco.get(0).x == 20) || (bloco.get(3).x == 20 && bloco.get(0).x == 20)) {
-     valor = false;
-     } else if ((this.rotacao == 1 || this.rotacao == 2) && (bloco.get(3).x == 20)) {
-     valor = false;
-     } else if (this.rotacao == 3 && (bloco.get(0).x == 20 && bloco.get(1).x == 20 && bloco.get(3).x == 20)) {
-     valor = false;
-     }
-     return valor;
-     }
-
-     private boolean verificaMOvimentoLDir() {
-     boolean valor = true;
-     /*
-     if (this.rotacao == 0 && (bloco.get(3).x == 400 || bloco.get(2).x == 400)) {
-     valor = false;
-     } else if (this.rotacao == 1 && (bloco.get(0).x == 400 && bloco.get(2).x == 400 && bloco.get(1).x == 400)) {
-     valor = false;
-     } else if (this.rotacao == 2 && (bloco.get(2).x == 400)) {
-     valor = false;
-     } else if (this.rotacao == 3 && (bloco.get(2).x == 400)) {
-     valor = false;
-     }
-         
-     if (bloco.get(0).x == 400 ||bloco.get(1).x == 400 ||bloco.get(2).x == 400 || bloco.get(3).x == 400) {
-     valor = false;
-     }
-     return valor;
-     }
-
-     private boolean verificaMovimentoTEsq() {
-     boolean valor = true;
-
-     if ((this.rotacao == 0 || this.rotacao == 1 || this.rotacao == 2) && bloco.get(3).x == 20) {
-     valor = false;
-     } else if (this.rotacao == 3 && (bloco.get(0).x == 20 && bloco.get(1).x == 20 && bloco.get(3).x == 20)) {
-     valor = false;
-     }
-     return valor;
-     }
-
-     private boolean verificaMovimentoTDir() {
-     boolean valor = true;
-     if (this.rotacao == 0 && bloco.get(0).x == 400) {
-     valor = false;
-     } else if (this.rotacao == 1 && (bloco.get(0).x == 400 && bloco.get(2).x == 400 && bloco.get(1).x == 400)) {
-     valor = false;
-     } else if (this.rotacao == 2 && (bloco.get(2).x == 400)) {
-     valor = false;
-     } else if (this.rotacao == 3 && (bloco.get(2).x == 400)) {
-     valor = false;
-     }
-     return valor;
-     }
-
-     private boolean verificaMovimentoSEsq() {
-     boolean valor = true;
-
-     if (this.rotacao == 0 && bloco.get(2).x == 20) {
-     valor = false;
-     } else if (this.rotacao == 1 && (bloco.get(0).x == 20 && bloco.get(1).x == 20)) {
-     valor = false;
-     }
-     return valor;
-     }
-
-     private boolean verificaMovimentoSDir() {
-     boolean valor = true;
-     if (this.rotacao == 0 && bloco.get(3).x == 400) {
-     valor = false;
-     } else if (this.rotacao == 1 && (bloco.get(3).x == 400 && bloco.get(2).x == 400)) {
-     valor = false;
-     }
-     return valor;
-     }
-
-     private boolean verificaMovimentoOEsq() {
-     boolean valor = true;
-
-     if (bloco.get(0).x == 20 && bloco.get(3).x == 20) {
-     valor = false;
-     }
-     return valor;
-     }
-
-     private boolean verificaMovimentoODir() {
-     boolean valor = true;
-
-     if (bloco.get(1).x == 400 && bloco.get(2).x == 400) {
-     valor = false;
-     }
-     return valor;
-     }
-
-     private boolean verificaMovimentoZEsq() {
-     boolean valor = true;
-
-     if (this.rotacao == 0 && bloco.get(3).x == 20) {
-     valor = false;
-     } else if (this.rotacao == 1 && (bloco.get(3).x == 20 && bloco.get(2).x == 20)) {
-     valor = false;
-     }
-     return valor;
-     }
-
-     private boolean verificaMovimentoZDir() {
-     boolean valor = true;
-     if (this.rotacao == 0 && bloco.get(2).x == 400) {
-     valor = false;
-     } else if (this.rotacao == 1 && (bloco.get(0).x == 400 && bloco.get(1).x == 400)) {
-     valor = false;
-     }
-     return valor;
-     }
-
-     private boolean verificaMovimentoIEsq() {
-     boolean valor = true;
-
-     if (this.rotacao == 0 && bloco.get(0).x == 20) {
-     valor = false;
-     } else if (this.rotacao == 1 && (bloco.get(0).x == 20 || bloco.get(2).x == 20)) {
-     valor = false;
-     }
-     return valor;
-     }
-
-     private boolean verificaMovimentoIDir() {
-     boolean valor = true;
-     if (this.rotacao == 0 && bloco.get(0).x == 400) {
-     valor = false;
-     } else if (this.rotacao == 1 && (bloco.get(3).x == 400 || bloco.get(0).x == 400)) {
-     valor = false;
-     }
-     return valor;
-     }
-     */
+            linha = (int) (this.bloco.get(0).y / 20);
+            coluna = (int) (this.bloco.get(0).x / 20);
+            this.linhaTeste = 888;
+            this.colunaTeste = (int) this.bloco.get(0).x;
+            if(this.matrizCenario[linha][coluna - 1] == 1){
+                return false;
+            }
+       // }
+        return true;
+    }
 }
