@@ -26,7 +26,9 @@ public class Cenario {
     private Keyboard teclado;
     private Rotacao rot;
     private Controlador mover;
-    private boolean loop;
+    private boolean loop = true;
+    private int pontuacao = 0;
+    private int nivel = 1;
     /*
      * matrizCenario é uma matriz que armazena o local que possui os blocos
      */
@@ -35,7 +37,7 @@ public class Cenario {
     GameImage imagem; // teste
     TileInfo teste; // teste
     int testeLinha; // teste
-    Pontuacao pont;
+    Pontuacao pont; // teste
 
     public Cenario(Window window) {
         this.criarMatrizCenario();
@@ -48,8 +50,7 @@ public class Cenario {
         cena = new Scene();
         cena.loadFromFile("cenario.scn");
         cena.setDrawStartPos(0, 0); // posiciona o cenario
-        this.loop = true;
-        Pontuacao pont = new Pontuacao();
+
 
         /*
          * Vai dar o ponta pé inicial criando um bloco com 4 objetos
@@ -78,7 +79,7 @@ public class Cenario {
             Color vermelhoEscuro = new Color(235, 50, 50);
             // janela.drawText("Quadrao eixo x: " + quadrados.get(idQuadrado).x + "eixo y: " + quadrados.get(idQuadrado).y + "Lugar de queda: " + quadrados.get(idQuadrado).isOnFloor() + " id quadrado" + idQuadrado, 20, 20, vermelhoEscuro);
 
-            //janela.drawText("Pontuacao: " + pont.pontuacao(matrizCenario), 500, 80, vermelhoEscuro);
+            janela.drawText("Pontuacao: " + this.pontuacao + " " + "Nível: " + this.nivel, 500, 80, vermelhoEscuro);
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
             /*
@@ -150,7 +151,11 @@ public class Cenario {
                 this.pontuacao(); 
                 
                 this.printMatrizCenario();
-                
+                if(this.pontuacao == 1){
+                    this.nivel = this.nivel + 1;
+                    this.pontuacao = 0;
+                    this.blocos.setQtdGravidade(2*this.blocos.getQtdGravidade());
+                }
                 rotacao = 0;
                 blocos = new Blocos();
                 blocos.getBlocos();
@@ -259,7 +264,7 @@ public class Cenario {
                 }
             }
             if (contPonto == 20) {
-                //this.PONTUACAO++;
+                this.pontuacao = this.pontuacao + 1;
                 return linha;
             }
             contPonto = 0;
@@ -322,7 +327,7 @@ public class Cenario {
         int coluna;
        
             for(coluna = 1; coluna < 21; coluna++){
-                if(this.matrizCenario[20][coluna] == 1){
+                if(this.matrizCenario[1][coluna] == 1){
                     return true;
                 }
             }

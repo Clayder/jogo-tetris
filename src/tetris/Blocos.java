@@ -24,6 +24,7 @@ public class Blocos {
     private int posXInicialBloco;
     private int CHAO = 580; // onde fica o chao 
     private int idCorBloco;
+    private static int qtdGravidade = 1;
 
     public Blocos() {
         this.gerarBlocoAleatorio();
@@ -61,10 +62,10 @@ public class Blocos {
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral - 20, 0, corBloco);
-        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco);
-        Objeto bloco2 = new Objeto(posObjCentral + 20, 0, corBloco);
-        Objeto bloco3 = new Objeto(posObjCentral + 20, 20, corBloco);
+        Objeto bloco0 = new Objeto(posObjCentral - 20, 0, corBloco, Blocos.qtdGravidade);
+        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco, Blocos.qtdGravidade);
+        Objeto bloco2 = new Objeto(posObjCentral + 20, 0, corBloco, Blocos.qtdGravidade);
+        Objeto bloco3 = new Objeto(posObjCentral + 20, 20, corBloco, Blocos.qtdGravidade);
 
         /*
          * Armazena os Objetos dentro da lista blocos 
@@ -89,10 +90,10 @@ public class Blocos {
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral - 20, 0, corBloco);
-        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco);
-        Objeto bloco2 = new Objeto(posObjCentral - 20, 20, corBloco);
-        Objeto bloco3 = new Objeto(posObjCentral + 20, 0, corBloco);
+        Objeto bloco0 = new Objeto(posObjCentral - 20, 0, corBloco, Blocos.qtdGravidade);
+        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco, Blocos.qtdGravidade);
+        Objeto bloco2 = new Objeto(posObjCentral - 20, 20, corBloco, Blocos.qtdGravidade);
+        Objeto bloco3 = new Objeto(posObjCentral + 20, 0, corBloco, Blocos.qtdGravidade);
 
 
         /*
@@ -118,10 +119,10 @@ public class Blocos {
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral + 20, 0, corBloco);
-        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco);
-        Objeto bloco2 = new Objeto(posObjCentral, 20, corBloco);
-        Objeto bloco3 = new Objeto(posObjCentral - 20, 0, corBloco);
+        Objeto bloco0 = new Objeto(posObjCentral + 20, 0, corBloco, Blocos.qtdGravidade);
+        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco, Blocos.qtdGravidade);
+        Objeto bloco2 = new Objeto(posObjCentral, 20, corBloco, Blocos.qtdGravidade);
+        Objeto bloco3 = new Objeto(posObjCentral - 20, 0, corBloco, Blocos.qtdGravidade);
 
         /*
          * Armazena os Objetos dentro da lista blocos 
@@ -146,10 +147,10 @@ public class Blocos {
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral - 20, 0, corBloco);
-        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco);
-        Objeto bloco2 = new Objeto(posObjCentral, 20, corBloco);
-        Objeto bloco3 = new Objeto(posObjCentral - 20, 20, corBloco);
+        Objeto bloco0 = new Objeto(posObjCentral - 20, 0, corBloco, Blocos.qtdGravidade);
+        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco, Blocos.qtdGravidade);
+        Objeto bloco2 = new Objeto(posObjCentral, 20, corBloco, Blocos.qtdGravidade);
+        Objeto bloco3 = new Objeto(posObjCentral - 20, 20, corBloco, Blocos.qtdGravidade);
 
         /*
          * Armazena os Objetos dentro da lista blocos 
@@ -174,10 +175,10 @@ public class Blocos {
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral, -20, corBloco);
-        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco);
-        Objeto bloco2 = new Objeto(posObjCentral - 20, 0, corBloco);
-        Objeto bloco3 = new Objeto(posObjCentral + 20, -20, corBloco);
+        Objeto bloco0 = new Objeto(posObjCentral, -20, corBloco, Blocos.qtdGravidade);
+        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco, Blocos.qtdGravidade);
+        Objeto bloco2 = new Objeto(posObjCentral - 20, 0, corBloco, Blocos.qtdGravidade);
+        Objeto bloco3 = new Objeto(posObjCentral + 20, -20, corBloco, Blocos.qtdGravidade);
 
         /*
          * Armazena os Objetos dentro da lista blocos 
@@ -202,10 +203,10 @@ public class Blocos {
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral, -20, corBloco);
-        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco);
-        Objeto bloco2 = new Objeto(posObjCentral + 20, 0, corBloco);
-        Objeto bloco3 = new Objeto(posObjCentral - 20, -20, corBloco);
+        Objeto bloco0 = new Objeto(posObjCentral, -20, corBloco, Blocos.qtdGravidade);
+        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco, Blocos.qtdGravidade);
+        Objeto bloco2 = new Objeto(posObjCentral + 20, 0, corBloco, Blocos.qtdGravidade);
+        Objeto bloco3 = new Objeto(posObjCentral - 20, -20, corBloco, Blocos.qtdGravidade);
 
         /*
          * Armazena os Objetos dentro da lista blocos 
@@ -230,10 +231,10 @@ public class Blocos {
         /*
          * Cria os objetos
          */
-        Objeto bloco0 = new Objeto(posObjCentral, -40, corBloco);
-        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco);
-        Objeto bloco2 = new Objeto(posObjCentral, -20, corBloco);
-        Objeto bloco3 = new Objeto(posObjCentral, 20, corBloco);
+        Objeto bloco0 = new Objeto(posObjCentral, -40, corBloco, Blocos.qtdGravidade);
+        Objeto bloco1 = new Objeto(posObjCentral, 0, corBloco, Blocos.qtdGravidade);
+        Objeto bloco2 = new Objeto(posObjCentral, -20, corBloco, Blocos.qtdGravidade);
+        Objeto bloco3 = new Objeto(posObjCentral, 20, corBloco, Blocos.qtdGravidade);
 
         /*
          * Armazena os Objetos dentro da lista blocos 
@@ -379,6 +380,14 @@ public class Blocos {
 
     public int getIdCorBloco() {
         return idCorBloco;
+    }
+
+    public void setQtdGravidade(int qtdGravidade) {
+        this.qtdGravidade = qtdGravidade;
+    }
+
+    public int getQtdGravidade() {
+        return qtdGravidade;
     }
 
 
