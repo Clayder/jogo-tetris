@@ -34,29 +34,34 @@ public class Blocos {
     private void criaBlocos() {
 
         String corBloco = this.corAleatoria();
-        
-        this.tipoBloco = 6;
-        
 
         /*
          * marca a posicao do objeto central (objeto1)
          */
         int posObjCentral = this.posXInicialBloco;
 
-        if (this.tipoBloco == 0) {
-            this.blocoJ(posObjCentral, corBloco);
-        } else if (this.tipoBloco == 1) {
-            this.blocoL(posObjCentral, corBloco);
-        } else if (this.tipoBloco == 2) {
-            this.blocoT(posObjCentral, corBloco);
-        } else if (this.tipoBloco == 3) {
-            this.blocoS(posObjCentral, corBloco);
-        } else if (this.tipoBloco == 4) {
-            this.blocoO(posObjCentral, corBloco);
-        } else if (this.tipoBloco == 5) {
-            this.blocoZ(posObjCentral, corBloco);
-        } else if (this.tipoBloco == 6) {
-            this.blocoI(posObjCentral, corBloco);
+        switch (this.tipoBloco) {
+            case 0:
+                this.blocoJ(posObjCentral, corBloco);
+                break;
+            case 1:
+                this.blocoL(posObjCentral, corBloco);
+                break;
+            case 2:
+                this.blocoT(posObjCentral, corBloco);
+                break;
+            case 3:
+                this.blocoS(posObjCentral, corBloco);
+                break;
+            case 4:
+                this.blocoO(posObjCentral, corBloco);
+                break;
+            case 5:
+                this.blocoZ(posObjCentral, corBloco);
+                break;
+            case 6:
+                this.blocoI(posObjCentral, corBloco);
+                break;
         }
     }
 
@@ -289,14 +294,14 @@ public class Blocos {
     }
 
     /*
-    * insere no atributo idCorBloco o id da imagem .png
-    * esse id vem do arquivo cenario.scn
-    * id-3 -> bloco1.png
-    * id-4 -> bloco2.png
-    * id-5 -> bloco3.png
-    * id-6 -> bloco4.png
-    * id-7 -> bloco5.png
-    */
+     * insere no atributo idCorBloco o id da imagem .png
+     * esse id vem do arquivo cenario.scn
+     * id-3 -> bloco1.png
+     * id-4 -> bloco2.png
+     * id-5 -> bloco3.png
+     * id-6 -> bloco4.png
+     * id-7 -> bloco5.png
+     */
     private void idTileObjeto(int cor) {
         this.idCorBloco = cor + 3;
     }
@@ -386,12 +391,11 @@ public class Blocos {
     }
 
     public void setQtdGravidade(int qtdGravidade) {
-        this.qtdGravidade = qtdGravidade;
+        Blocos.qtdGravidade = qtdGravidade;
     }
 
     public int getQtdGravidade() {
         return qtdGravidade;
     }
-
 
 }

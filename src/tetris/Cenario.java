@@ -1,6 +1,7 @@
 package tetris;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -31,6 +32,10 @@ public class Cenario {
      * matrizCenario é uma matriz que armazena o local que possui os blocos
      */
     private int matrizCenario[][];
+
+    GameImage imagem; // teste
+    TileInfo teste; // teste
+    int testeLinha; // teste
 
     public Cenario(Window window) {
         this.criarMatrizCenario();
@@ -90,8 +95,10 @@ public class Cenario {
             } else if (teclado.keyDown(Keyboard.DOWN_KEY)) {
                 mover = new Controlador(blocos.getBlocos(), rotacao, blocos.getTipoBloco());
                 blocos.setBlocos(mover.moverBaixo(20));
-            } // Rotaciona o bloco
-            else if (teclado.keyDown(Keyboard.UP_KEY)) {
+            }
+
+            // Rotaciona o bloco
+            if (teclado.keyDown(Keyboard.UP_KEY)) {
 
                 rotacao++;
 
@@ -118,9 +125,11 @@ public class Cenario {
                 rot = new Rotacao(blocos.getBlocos(), rotacao, blocos.getTipoBloco());
                 blocos.setBlocos(rot.rotacionar());
 
-            } /*
+            }
+            /*
              * Sai do jogo
-             */ else if (teclado.keyDown(Keyboard.ESCAPE_KEY)) {
+             */
+            if (teclado.keyDown(Keyboard.ESCAPE_KEY)) {
                 janela.exit();
             }
 
@@ -130,22 +139,22 @@ public class Cenario {
             }
 
             /*
+             * Verifica se foi efetuado algum ponto
+             */
+            this.pontuacao();
+            // this.printMatrizCenario();
+            if (this.pontuacao == 3) {
+                this.nivel = this.nivel + 1;
+                this.pontuacao = 0;
+                this.blocos.setQtdGravidade(2 * this.blocos.getQtdGravidade());
+            }
+
+            /*
              * Assim que os 4 objetos chegarem ao seu destino outros 4 vão ser criados 
              */
             if ((blocos.blocoChao(blocos.getBlocos()) || blocos.colisao(this.matrizCenario, blocos.getBlocos()))) {
                 this.armazenaBlocoTile(blocos.getBlocos());
 
-                /*
-                 * Verifica se foi efetuado algum ponto
-                 */
-                this.pontuacao();
-
-                // this.printMatrizCenario();
-                if (this.pontuacao == 3) {
-                    this.nivel = this.nivel + 1;
-                    this.pontuacao = 0;
-                    this.blocos.setQtdGravidade(2 * this.blocos.getQtdGravidade());
-                }
                 rotacao = 0;
                 blocos = new Blocos();
                 blocos.getBlocos();
@@ -178,15 +187,18 @@ public class Cenario {
      * Armazena o bloco no tile 
      */
     private void armazenaBlocoTile(List<Objeto> bloco) {
+        List<Integer> paradaObj0 = new ArrayList<Integer>();
+        List<Integer> paradaObj1 = new ArrayList<Integer>();
+        List<Integer> paradaObj2 = new ArrayList<Integer>();
+        List<Integer> paradaObj3 = new ArrayList<Integer>();
 
         /*
          * Envia as coordenadas X e Y para saber em qual tile o objeto está
-         *
          */
-        List<Integer> paradaObj0 = this.localizadorTile((int) bloco.get(0).x, (int) bloco.get(0).y);
-        List<Integer> paradaObj1 = this.localizadorTile((int) bloco.get(1).x, (int) bloco.get(1).y);
-        List<Integer> paradaObj2 = this.localizadorTile((int) bloco.get(2).x, (int) bloco.get(2).y);
-        List<Integer> paradaObj3 = this.localizadorTile((int) bloco.get(3).x, (int) bloco.get(3).y);
+        paradaObj0 = this.localizadorTile((int) bloco.get(0).x, (int) bloco.get(0).y);
+        paradaObj1 = this.localizadorTile((int) bloco.get(1).x, (int) bloco.get(1).y);
+        paradaObj2 = this.localizadorTile((int) bloco.get(2).x, (int) bloco.get(2).y);
+        paradaObj3 = this.localizadorTile((int) bloco.get(3).x, (int) bloco.get(3).y);
 
         /*
          * Armazena o objeto no tile
@@ -242,25 +254,14 @@ public class Cenario {
         }
     }
 
-    public void pontuacao() {
-        int linhaPont = this.verificaPont();
-        // significa que teve algum ponto e essa variavel possui o número de alguma linha
-        if (linhaPont != -1) {
-            this.percorrerLinha(linhaPont);
-        }
-    }
-    
     /*
-    * Verifica se teve alguma pontuação 
-    */
+     * Verifica se teve alguma pontuação 
+     */
     private int verificaPont() {
         int contPonto = 0;
         int linha;
         int coluna;
 
-        /*
-         * Percorre a matriz
-         */
         for (linha = 0; linha < 30; linha++) {
             for (coluna = 0; coluna < 22; coluna++) {
                 // Verifica se aquela linha possui objetos
@@ -286,52 +287,50 @@ public class Cenario {
         int coluna;
 
         /*
-        * Vamos começar a percorrer a partir da linha pontuada até a linha 0
-        * Isso é feito pois temos que descer os blocos acima da linha pontuada
-        */
+         * Vamos começar a percorrer a partir da linha pontuada até a linha 0
+         * Isso é feito pois temos que descer os blocos acima da linha pontuada
+         */
         for (linha = linhaPonto; linha > 0; linha--) {
             for (coluna = 1; coluna < 21; coluna++) {
                 /*
-                * (linha - 1) "olhamos" para a linha de cima e verificamos se ela possui objetos
-                */
+                 * (linha - 1) "olhamos" para a linha de cima e verificamos se ela possui objetos
+                 */
                 if (this.verificaLinha(linha - 1)) {
                     /*
-                    * Verifica se aquele quadrante [linha][coluna] está vazio
-                    * tile.id = 1 , é o quadrado preto 
-                    */ 
+                     * Verifica se aquele quadrante [linha][coluna] está vazio
+                     * tile.id = 1 , é o quadrado preto 
+                     */
                     if (cena.getTile(linha - 1, coluna).id == 1) {
                         /*
-                        * Vamos descer esse quadrante, então na matrizCenario ele vai passar a ser 0
-                        */
+                         * Vamos descer esse quadrante, então na matrizCenario ele vai passar a ser 0
+                         */
                         this.matrizCenario[linha][coluna] = 0;
-                    } 
-                    /*
-                    * se o id do tile for != 1, então possui algum objeto
-                    * Então na posição a baixo da (linha - 1) vai receber 1
-                    */
-                    else {
+                    } /*
+                     * se o id do tile for != 1, então possui algum objeto
+                     * Então na posição a baixo da (linha - 1) vai receber 1
+                     */ else {
                         this.matrizCenario[linha][coluna] = 1;
                     }
                     /*
-                    * Vamos modificar o cenário, a posicao [linha][coluna] vai receber o tile da 
-                    * posicão de cima [linha - 1][coluna]
-                    */
+                     * Vamos modificar o cenário, a posicao [linha][coluna] vai receber o tile da 
+                     * posicão de cima [linha - 1][coluna]
+                     */
                     cena.changeTile(linha, coluna, cena.getTile(linha - 1, coluna).id);
-                } 
-                /*
-                * Se ela não possuir objetos então não temos que descer nada 
-                */
-                else {
-                    this.removerLinha(linha, 1);
+                } /*
+                 * Se ela não possuir objetos então não temos que descer nada 
+                 */ else {
+                    this.removerLinha(linha - 1, 1);
                     break;
                 }
             }
+
         }
+
     }
 
     /*
-    * Insere o tile passado por paramêtro na linha inteira
-    */
+     * Insere o tile passado por paramêtro na linha inteira
+     */
     private void removerLinha(int linha, int tile) {
         int coluna;
         for (coluna = 1; coluna < 21; coluna++) {
@@ -351,8 +350,17 @@ public class Cenario {
         return verifica;
     }
 
+    public void pontuacao() {
+        int linhaPont = this.verificaPont();
+        // significa que teve algum ponto e essa variavel possui o número de alguma linha
+        if (linhaPont != -1) {
+            this.percorrerLinha(linhaPont);
+        }
+    }
+
     private boolean gameOver() {
         int coluna;
+
         for (coluna = 1; coluna < 21; coluna++) {
             // Se a linha 1 possuir algum objeto, acabou o jogo
             if (this.matrizCenario[1][coluna] == 1) {
