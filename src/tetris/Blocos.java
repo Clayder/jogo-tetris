@@ -34,6 +34,9 @@ public class Blocos {
     private void criaBlocos() {
 
         String corBloco = this.corAleatoria();
+        
+        this.tipoBloco = 6;
+        
 
         /*
          * marca a posicao do objeto central (objeto1)
